@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ROS Winter League 2025/26</title>
+  <style>
+    :root{
+      --bg:#eef2f6; --card:#ffffff; --muted:#5b606b; --text:#0f172a;
+      --brand:#2563eb; --brand-2:#7c3aed; --border:#e2e8f0;
+      --radius-xl:20px; --shadow:0 8px 20px rgba(15,23,42,.06);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:var(--bg)}
+
+    /* Header / nav */
+    header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border)}
+    header::after{content:"";position:absolute;inset:auto 0 0 0;height:2px;background:linear-gradient(90deg,var(--brand),var(--brand-2));opacity:.6}
+    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 16px 14px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .logo{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff}
+    .tabs{margin-left:auto;display:flex;gap:0;overflow:auto;border-radius:14px;background:linear-gradient(180deg,#ffffffaa,#ffffffee);border:1px solid var(--border);box-shadow:0 4px 14px rgba(15,23,42,.06)}
+    .tab{border:0;background:transparent;color:var(--text);padding:10px 22px;cursor:pointer;font-weight:800;letter-spacing:.2px;position:relative;transition:all .2s ease;white-space:nowrap;border-right:1px solid var(--border)}
+    .tab:last-child{border-right:none}
+    .tab:hover{background:#f5f7ff;color:var(--brand)}
+    .tab[aria-current="page"]{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(37,99,235,.2)}
+
+    /* Layout */
+    main{max-width:1200px;margin:22px auto;padding:0 16px}
+
+    /* Background wrapper JUST behind info boxes */
+  .infoBg{
+  background-image:
+    
+    url("SL-072321-44560-17.jpg"); /* <- put your PNG here */
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:16px;
+  margin-bottom:16px;
+}
+body {
+  margin: 0;
+  font: 15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color: var(--text);
+  background: 
+    
+    url("ultrawide-blue-3840x2160-19825.png") center center / cover no-repeat fixed;
+}
+
+
+    /* Cards */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);box-shadow:var(--shadow)}
+    .card h2{margin:0;font-size:18px}
+    .card .hd{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border)}
+    .card .bd{padding:12px 16px}
+    .badge{background:#eef2ff;color:#334155;padding:3px 8px;border-radius:999px;font-size:12px;border:1px solid #dbe3ff}
+    .muted{color:var(--muted)}
+    .pill{padding:4px 8px;border-radius:999px;background:#f2f7ff;border:1px solid #dbe3ff;color:#1f2a44;font-size:12px}
+
+    /* HOME 2x2 grid: Left 60% (two rows), Right 40% (two rows) */
+    .homeGrid{display:grid;gap:16px}
+    @media (min-width:980px){
+      .homeGrid{grid-template-columns:3fr 2fr; grid-template-rows:auto 1fr; align-items:stretch}
+      .homeGrid > .card{height:100%}
+      #homeRecent{grid-column:1;grid-row:1}
+      #homeTable{ grid-column:1;grid-row:2}
+      #homeScorers{grid-column:2;grid-row:1}
+      #homeAssisters{grid-column:2;grid-row:2}
+    }
+
+    /* Latest Matchweek (top-left) */
+    .matchRow{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;padding:14px 16px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:10px}
+    .teamSide{display:flex;align-items:center;gap:8px}
+    .teamName{font-weight:800;font-size:17px}
+    .scoreBig{font-size:38px;font-weight:900;text-align:center;min-width:120px}
+    #homeRecent .bd{max-height:320px;overflow:auto}
+
+    /* League Table (bottom-left) */
+    #homeTable .bd{height:100%;display:flex;flex-direction:column}
+    #homeTable .tableWrap{flex:1;min-height:280px;overflow:auto}
+
+    /* Leaders (right column) */
+    .toplist{display:flex;flex-direction:column;gap:12px}
+    .row{display:grid;grid-template-columns:46px 1fr auto;align-items:center;gap:12px}
+    .avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;display:grid;place-items:center;font-weight:800}
+    .statValue{font-weight:900;font-size:32px;line-height:1;color:var(--text)}
+    .statUnit{font-size:12px;color:#475569;margin-left:6px}
+
+    /* Tables */
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left}
+    tbody tr:hover{background:#edf2ff}
+    th button{background:none;border:none;color:var(--text);font-weight:600;cursor:pointer}
+
+    /* Embeds */
+    .iframeWrap{position:relative;width:100%;padding-top:60%;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
+    .iframeWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">❄️</div>
+      <span>ROS Winter League 2025/26</span>
+      <span class="badge" id="seasonRange">2025/26</span>
+    </div>
+    <nav class="tabs">
+      <button class="tab" data-route="#home">Home</button>
+      <button class="tab" data-route="#schedule">Schedule</button>
+      <button class="tab" data-route="#rosters">Rosters</button>
+      <button class="tab" data-route="#results">Results</button>
+      <button class="tab" data-route="#stats">Full Stats</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section id="home" hidden>
+    <div class="infoBg">
+      <div class="homeGrid">
+        <!-- TL: Latest Matchweek -->
+        <div class="card" id="homeRecent">
+          <div class="hd"><h2>Latest Matchweek Scores</h2></div>
+          <div class="bd" id="thisWeekResults"></div>
+        </div>
+
+        <!-- TR: Top Scorers -->
+        <div class="card" id="homeScorers">
+          <div class="hd"><h2>Most Goals</h2><span class="badge" id="maxGoals">—</span></div>
+          <div class="bd"><div class="toplist" id="topScorers"></div></div>
+        </div>
+
+        <!-- BL: League Table (bigger than TL, aligns with BR) -->
+        <div class="card" id="homeTable">
+          <div class="hd">
+            <h2>League Table</h2>
+            <span class="badge" id="lastUpdated">—</span>
+          </div>
+          <div class="bd">
+            <div class="muted" style="margin-bottom:6px">Tip: Click a column to sort.</div>
+            <div class="tableWrap">
+              <table id="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th><button data-sort="team">Team</button></th>
+                    <th><button data-sort="played">P</button></th>
+                    <th><button data-sort="wins">W</button></th>
+                    <th><button data-sort="draws">D</button></th>
+                    <th><button data-sort="losses">L</button></th>
+                    <th><button data-sort="gf">GF</button></th>
+                    <th><button data-sort="ga">GA</button></th>
+                    <th><button data-sort="gd">GD</button></th>
+                    <th><button data-sort="points">Pts</button></th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- BR: Top Assisters -->
+        <div class="card" id="homeAssisters">
+          <div class="hd"><h2>Most Assists</h2><span class="badge" id="maxAssists">—</span></div>
+          <div class="bd"><div class="toplist" id="topAssisters"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE PAGE -->
+  <section id="schedule" hidden>
+    <div class="infoBg">
+      <div class="grid">
+        <div class="card">
+          <div class="hd"><h2>Schedule</h2><span class="badge" id="gameCount">—</span></div>
+          <div class="bd" id="scheduleWrap"></div>
+          <div class="bd"><div class="muted">All games at <strong>Bell Sensplex</strong>. Edit <code>data.schedule</code> to update.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROSTERS -->
+  <section id="rosters" hidden>
+    <div class="infoBg">
+      <div class="grid">
+        <div class="card">
+          <div class="hd"><h2>Team Rosters</h2><span class="badge" id="teamCount">—</span></div>
+          <div class="bd" id="rosterList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" hidden>
+    <div class="infoBg">
+      <div class="grid">
+        <div class="card">
+          <div class="hd"><h2>Match Results</h2><span class="badge" id="resultsCount">—</span></div>
+          <div class="bd" id="resultsList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL STATS (Sheets) -->
+  <section id="stats" hidden>
+    <div class="infoBg">
+      <div class="grid">
+        <div class="card">
+          <div class="hd"><h2>Full Stats (Google Sheets)</h2><span class="badge">view-only</span></div>
+          <div class="bd">
+            <div class="iframeWrap" id="statsSheetWrap"></div>
+            <div class="muted" style="margin-top:6px">Paste a public Sheets link into <code>data.embeds.statsSheetUrl</code>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // ========= DATA =========
+  const data = {
+    leagueName: "ROS Winter League 2025/26",
+    seasonStart: "2025-10-29",
+    seasonEnd:   "2026-02-19",
+    embeds: { statsSheetUrl: "" },
+    teams: [
+      { id:'T1', name:'Riverside Rovers',  short:'RRV', color:'#2563eb' },
+      { id:'T2', name:'Bayview Bolts',     short:'BVB', color:'#7c3aed' },
+      { id:'T3', name:'Midtown Meteors',   short:'MTM', color:'#16a34a' },
+      { id:'T4', name:'Northside Knights', short:'NSK', color:'#f59e0b' },
+      { id:'T5', name:'South End Spartans',short:'SES', color:'#ef4444' }
+    ],
+    players: [
+      { id:'P201', teamId:'T1', name:'Sowad Aleem',    position:'FW', goals:9, assists:3 },
+      { id:'P202', teamId:'T2', name:'Tazin Rahman',   position:'MF', goals:7, assists:8 },
+      { id:'P203', teamId:'T3', name:'Adeeb Urfani',   position:'FW', goals:6, assists:2 },
+      { id:'P204', teamId:'T4', name:'Sindeed Islam',  position:'FW', goals:5, assists:1 },
+      { id:'P205', teamId:'T5', name:'Muztavi Kabir',  position:'FW', goals:4, assists:0 },
+      { id:'P206', teamId:'T3', name:'Monjur Murshed', position:'MF', goals:1, assists:10 },
+      { id:'P207', teamId:'T4', name:'Sameen Ahsan',   position:'MF', goals:0, assists:6 },
+      { id:'P208', teamId:'T2', name:'Zareef Al Islam',position:'MF', goals:1, assists:5 },
+      { id:'P209', teamId:'T1', name:'Sowad Alim',     position:'MF', goals:2, assists:4 },
+    ],
+    matches: [
+      { id:'M1', date:'2025-10-29', homeTeamId:'T1', awayTeamId:'T2', homeScore:3, awayScore:2, status:'final' },
+      { id:'M2', date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T4', homeScore:4, awayScore:4, status:'final' },
+    ],
+    schedule: [
+      { id:'S1', date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T1', away:'T2', status:'final' },
+      { id:'S2', date:'2025-10-29', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T3', away:'T4', status:'final' },
+      { id:'S3', date:'2025-11-05', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T1', status:'scheduled' },
+      { id:'S4', date:'2025-11-05', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T2', away:'T3', status:'scheduled' },
+    ],
+    results: [
+      { id:'R1', date:'2025-10-29', home:'T1', away:'T2', hs:3, as:2, scorers:{ T1:[], T2:[] } },
+      { id:'R2', date:'2025-10-29', home:'T3', away:'T4', hs:4, as:4, scorers:{ T3:[], T4:[] } }
+    ]
+  };
+
+  // ========= Utils =========
+  const byId = (id) => document.getElementById(id);
+  const teamById = (id) => data.teams.find(t=>t.id===id);
+  const playersByTeam = (id) => data.players.filter(p=>p.teamId===id);
+  const fmtDate = (d) => new Date(d).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+
+  // ========= Standings =========
+  function computeStandings(){
+    const base = Object.fromEntries(data.teams.map(t=>[t.id,{ teamId:t.id, team:t.name, short:t.short, color:t.color, played:0,wins:0,draws:0,losses:0,gf:0,ga:0,gd:0,points:0 }]));
+    for(const m of data.matches){
+      if(m.status!=='final') continue;
+      const home = base[m.homeTeamId]; const away = base[m.awayTeamId];
+      home.played++; away.played++;
+      home.gf += m.homeScore; home.ga += m.awayScore;
+      away.gf += m.awayScore; away.ga += m.homeScore;
+      if(m.homeScore>m.awayScore){ home.wins++; home.points+=3; away.losses++; }
+      else if(m.homeScore<m.awayScore){ away.wins++; away.points+=3; home.losses++; }
+      else { home.draws++; away.draws++; home.points++; away.points++; }
+    }
+    for(const t of Object.values(base)) t.gd = t.gf - t.ga;
+    return Object.values(base).sort((a,b)=> b.points-a.points || b.gd-a.gd || b.gf-a.gf || a.team.localeCompare(b.team));
+  }
+
+  function renderTable(sortBy='points', dir='desc'){
+    const tbody = byId('table').querySelector('tbody');
+    let rows = computeStandings();
+    if(sortBy && sortBy!=='rank'){
+      const f = dir==='asc'?1:-1; rows = [...rows].sort((a,b)=> (a[sortBy]===b[sortBy]?0:(a[sortBy]>b[sortBy]?1:-1))*f);
+    }
+    tbody.innerHTML='';
+    rows.forEach((r,i)=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td><span class="pill">${r.team}</span></td>
+        <td>${r.played}</td><td>${r.wins}</td><td>${r.draws}</td><td>${r.losses}</td>
+        <td>${r.gf}</td><td>${r.ga}</td><td>${r.gd}</td><td><strong>${r.points}</strong></td>`;
+      tbody.appendChild(tr);
+    });
+    byId('lastUpdated').textContent = 'Updated ' + new Date().toLocaleString();
+  }
+
+  // ========= Leaders =========
+  function topPlayers(key, limit=5){
+    return [...data.players].sort((a,b)=> (b[key]??0)-(a[key]??0) || a.name.localeCompare(b.name)).slice(0,limit);
+  }
+  function renderLeaders(){
+    const scorers = topPlayers('goals',5);
+    const assisters = topPlayers('assists',5);
+    byId('maxGoals').textContent   = `Max: ${scorers[0]?.goals ?? 0}`;
+    byId('maxAssists').textContent = `Max: ${assisters[0]?.assists ?? 0}`;
+    const list = (arr, mountId, key) => {
+      const el = byId(mountId); el.innerHTML='';
+      arr.forEach((p,idx)=>{
+        const t = teamById(p.teamId);
+        const row = document.createElement('div'); row.className='row';
+        row.innerHTML = `
+          <div class="avatar">${p.name.split(' ').map(x=>x[0]).join('').slice(0,2)}</div>
+          <div>
+            <div><strong>${idx+1}. ${p.name}</strong> <span class="muted">(${t?.name || ''})</span></div>
+          </div>
+          <div class="statValue">${p[key]}<span class="statUnit">${key==='goals'?'G':'A'}</span></div>`;
+        el.appendChild(row);
+      });
+    };
+    list(scorers, 'topScorers', 'goals');
+    list(assisters, 'topAssisters', 'assists');
+  }
+
+  // ========= Home (Latest Matchweek) =========
+  function renderLatestMatchday(){
+    const mount = byId('thisWeekResults');
+    if(!data.results.length){ mount.innerHTML = '<div class="muted">No results yet.</div>'; return; }
+    const latestDate = [...data.results].map(r=>r.date).sort((a,b)=> new Date(b)-new Date(a))[0];
+    const dayResults = data.results.filter(r=> r.date === latestDate);
+    mount.innerHTML = '';
+    const info = document.createElement('div');
+    info.className='muted'; info.style.margin='0 0 8px 0';
+    info.textContent = new Date(latestDate).toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+    mount.appendChild(info);
+    dayResults.forEach(r=>{
+      const ht = teamById(r.home) || {name:r.home, color:'#2563eb'};
+      const at = teamById(r.away) || {name:r.away, color:'#7c3aed'};
+      const row = document.createElement('div'); row.className='matchRow';
+      row.innerHTML = `
+        <div class="teamSide"><span class="teamName" style="color:${ht.color}">${ht.name}</span></div>
+        <div class="scoreBig">${r.hs}&nbsp;–&nbsp;${r.as}</div>
+        <div class="teamSide" style="justify-content:flex-end"><span class="teamName" style="color:${at.color}">${at.name}</span></div>`;
+      mount.appendChild(row);
+    });
+  }
+
+  // ========= Other pages =========
+  function renderSchedule(){
+    const wrap = byId('scheduleWrap'); wrap.innerHTML='';
+    const items = [...data.schedule].sort((a,b)=> new Date(a.date)-new Date(b.date));
+    byId('gameCount').textContent = `${items.length} games`;
+    let currentMonth='';
+    items.forEach(g=>{
+      const m = new Date(g.date).toLocaleString(undefined,{month:'long',year:'numeric'});
+      if(m!==currentMonth){ currentMonth=m; const h=document.createElement('h3'); h.textContent=currentMonth; h.style.margin='6px 0 8px'; wrap.appendChild(h); }
+      const div=document.createElement('div'); div.className='card'; div.style.marginBottom='10px';
+      const ht = teamById(g.home)?.name || g.home; const at = teamById(g.away)?.name || g.away;
+      div.innerHTML = `
+        <div class="hd"><h2>${ht} vs ${at}</h2><span class="badge">${g.status||'scheduled'}</span></div>
+        <div class="bd">${fmtDate(g.date)} — ${g.time||''} · ${g.venue||'Bell Sensplex'}</div>`;
+      wrap.appendChild(div);
+    });
+  }
+
+  function renderRosters(){
+    const mount = byId('rosterList'); mount.innerHTML='';
+    data.teams.forEach(team=>{
+      const players = playersByTeam(team.id);
+      const det = document.createElement('details'); det.className='team card';
+      det.innerHTML = `
+        <summary class="hd" style="cursor:pointer">
+          <div style="display:flex;align-items:center;gap:10px"><span class="pill">${team.name}</span></div>
+          <span class="muted">${players.length} players</span>
+        </summary>
+        <div class="bd">
+          <table style="width:100%;border-collapse:collapse"><thead><tr><th>Name</th><th>Position</th></tr></thead>
+            <tbody>${players.map(p=>`<tr><td>${p.name}</td><td>${p.position??''}</td></tr>`).join('')}</tbody>
+          </table>
+        </div>`;
+      mount.appendChild(det);
+    });
+    byId('teamCount').textContent = `${data.teams.length} Teams`;
+  }
+
+  function renderResults(){
+    const wrap = byId('resultsList'); wrap.innerHTML='';
+    const items = [...data.results].sort((a,b)=> new Date(b.date)-new Date(a.date));
+    byId('resultsCount').textContent = `${items.length} games`;
+    items.forEach(r=>{
+      const ht = teamById(r.home)?.name || r.home; const at = teamById(r.away)?.name || r.away;
+      const div = document.createElement('div'); div.className='card'; div.id = `results-${r.id}`;
+      div.innerHTML = `
+        <div class="hd"><h2>${fmtDate(r.date)} — ${ht} ${r.hs}&nbsp;–&nbsp;${r.as} ${at}</h2><span class="badge">Final</span></div>
+        <div class="bd">
+          <div style="display:grid;gap:8px">
+            <div><strong>${ht}</strong> scorers: <span class="muted">${(r.scorers?.[r.home]||[]).join(', ') || '—'}</span></div>
+            <div><strong>${at}</strong> scorers: <span class="muted">${(r.scorers?.[r.away]||[]).join(', ') || '—'}</span></div>
+          </div>
+        </div>`;
+      wrap.appendChild(div);
+    });
+  }
+
+  // ========= Router =========
+  const sections = ['home','schedule','rosters','results','stats'];
+  function setRoute(hash){
+    const route = (hash||'#home').split('?')[0];
+    sections.forEach(id=>{ (document.getElementById(id)||{}).hidden = ('#'+id)!==route; });
+    document.querySelectorAll('.tab').forEach(btn=> btn.setAttribute('aria-current', btn.dataset.route===route?'page':'false'));
+    if(route==="#home"){ renderLatestMatchday(); renderTable(); renderLeaders(); }
+    if(route==="#schedule"){ renderSchedule(); }
+    if(route==="#rosters"){ renderRosters(); }
+    if(route==="#results"){ renderResults(); }
+    if(route==="#stats"){ byId('statsSheetWrap').innerHTML = data.embeds.statsSheetUrl ? `<iframe src="${data.embeds.statsSheetUrl.replace('/edit','/preview')}" loading="lazy" allowfullscreen></iframe>` : `<div class='muted'>Add <code>data.embeds.statsSheetUrl</code> to show your full stats.</div>`; }
+  }
+  window.addEventListener('hashchange', ()=> setRoute(location.hash));
+  document.querySelectorAll('.tab').forEach(btn=> btn.addEventListener('click', ()=> location.hash = btn.dataset.route));
+
+  // Table sorting
+  (function initSort(){
+    document.addEventListener('click', (e)=>{
+      const table = document.querySelector('#table'); if(!table) return;
+      const btn = e.target.closest('#table thead button[data-sort]');
+      if(!btn) return; const key = btn.dataset.sort;
+      if(!initSort.state) initSort.state = { key:'points', dir:'desc' };
+      initSort.state = (initSort.state.key===key) ? { key, dir: initSort.state.dir==='desc'?'asc':'desc' } : { key, dir:'desc' };
+      renderTable(initSort.state.key, initSort.state.dir);
+    });
+  })();
+
+  // Boot
+  (function boot(){
+    byId('seasonRange').textContent = `${new Date(data.seasonStart).getFullYear()}/${String(new Date(data.seasonEnd).getFullYear()).slice(-2)}`;
+    if(!location.hash) location.hash = '#home';
+    setRoute(location.hash);
+  })();
+</script>
+</body>
+</html>
