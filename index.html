@@ -15,9 +15,9 @@
       background:url("ultrawide-blue-3840x2160-19825.png") center center / cover no-repeat fixed}
 
     /* Header / nav */
-    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border)}
+    header{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border)}
     header::after{content:"";position:absolute;inset:auto 0 0 0;height:2px;background:linear-gradient(90deg,var(--brand),var(--brand-2));opacity:.6}
-    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px 12px}
+    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px 12px;position:relative}
     .brand{display:flex;align-items:center;gap:10px;font-weight:800}
     .logo{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff}
 
@@ -28,13 +28,13 @@
     .tab:hover{background:#f5f7ff;color:var(--brand)}
     .tab[aria-current="page"]{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(37,99,235,.2)}
 
-    /* Mobile nav improvements */
+    /* Mobile nav: absolute dropdown so it never gets cut off */
     .menuToggle{display:none;margin-left:auto;border:1px solid var(--border);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;font-weight:800}
     .menuToggle:active{transform:scale(.98)}
     @media (max-width:720px){
-      .nav{flex-wrap:wrap;gap:8px}
+      .nav{flex-wrap:nowrap}
       .menuToggle{display:inline-flex;align-items:center;gap:8px}
-      .tabs{display:none;width:100%;flex-direction:column;overflow:visible;border-radius:12px;background:#fff}
+      .tabs{display:none;position:absolute;top:100%;left:16px;right:16px;width:auto;flex-direction:column;overflow:visible;border-radius:12px;background:#fff;z-index:10000}
       .tabs.open{display:flex}
       .tab{border-right:none;border-top:1px solid var(--border);text-align:left;padding:14px 16px}
       .tab:first-child{border-top:none}
@@ -242,11 +242,11 @@
     seasonEnd:   "2026-02-19",
     embeds: { statsSheetUrl: "" },
     teams: [
-      { id:'T1', name:'Riverside Rovers',  short:'RRV', color:'#2563eb' },
-      { id:'T2', name:'Bayview Bolts',     short:'BVB', color:'#7c3aed' },
-      { id:'T3', name:'Midtown Meteors',   short:'MTM', color:'#16a34a' },
-      { id:'T4', name:'Northside Knights', short:'NSK', color:'#f59e0b' },
-      { id:'T5', name:'South End Spartans',short:'SES', color:'#ef4444' }
+      { id:'T1', name:'Adda Athletics',  short:'ADD', color:'#111827' }, // black
+      { id:'T2', name:'Sagor Er Dol',    short:'SED', color:'#ffffff' }, // white
+      { id:'T3', name:'Crack Platoon',   short:'CPL', color:'#1d4ed8' }, // blue
+      { id:'T4', name:'Gunners',         short:'GUN', color:'#ef4444' }, // red
+      { id:'T5', name:'TBD FC',          short:'TBD', color:'#64748b' }  // placeholder
     ],
     players: [
       { id:'P201', teamId:'T1', name:'Sowad Aleem',    position:'FW', goals:9, assists:3 },
@@ -280,6 +280,16 @@
   const teamById = (id) => data.teams.find(t=>t.id===id);
   const playersByTeam = (id) => data.players.filter(p=>p.teamId===id);
   const fmtDate = (d) => new Date(d).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+
+  // color helpers to keep white readable on white background
+  function hexToRgb(hex){
+    const h = hex.replace('#','');
+    const bigint = parseInt(h.length===3 ? h.split('').map(x=>x+x).join('') : h, 16);
+    return {r:(bigint>>16)&255, g:(bigint>>8)&255, b:bigint&255};
+  }
+  function isLight(hex){
+    try{ const {r,g,b}=hexToRgb(hex); const l = (0.2126*r+0.7152*g+0.0722*b)/255; return l>0.85; }catch{ return false; }
+  }
 
   // ========= Standings =========
   function computeStandings(){
@@ -358,11 +368,15 @@
     dayResults.forEach(r=>{
       const ht = teamById(r.home) || {name:r.home, color:'#2563eb'};
       const at = teamById(r.away) || {name:r.away, color:'#7c3aed'};
+      const leftColor = isLight(ht.color) ? '#111111' : ht.color;
+      const rightColor = isLight(at.color) ? '#111111' : at.color;
+      const leftStyle = `color:${leftColor};${isLight(ht.color)?'border:1px solid #e2e8f0;padding:2px 6px;border-radius:8px':''}`;
+      const rightStyle = `color:${rightColor};${isLight(at.color)?'border:1px solid #e2e8f0;padding:2px 6px;border-radius:8px':''}`;
       const row = document.createElement('div'); row.className='matchRow';
       row.innerHTML = `
-        <div class="teamSide"><span class="teamName" style="color:${ht.color}">${ht.name}</span></div>
+        <div class="teamSide"><span class="teamName" style="${leftStyle}">${ht.name}</span></div>
         <div class="scoreBig">${r.hs}&nbsp;–&nbsp;${r.as}</div>
-        <div class="teamSide" style="justify-content:flex-end"><span class="teamName" style="color:${at.color}">${at.name}</span></div>`;
+        <div class="teamSide" style="justify-content:flex-end"><span class="teamName" style="${rightStyle}">${at.name}</span></div>`;
       mount.appendChild(row);
     });
   }
@@ -451,7 +465,7 @@
     });
   })();
 
-  // Mobile menu toggle
+  // Mobile menu toggle (safe on all pages)
   const toggle = document.getElementById('menuToggle');
   const tabs = document.getElementById('siteTabs');
   toggle.addEventListener('click', ()=>{
@@ -461,7 +475,7 @@
 
   // Boot
   (function boot(){
-    byId('seasonRange').textContent = `${new Date(data.seasonStart).getFullYear()}/${String(new Date(data.seasonEnd).getFullYear()).slice(-2)}`;
+    document.getElementById('seasonRange').textContent = `${new Date(data.seasonStart).getFullYear()}/${String(new Date(data.seasonEnd).getFullYear()).slice(-2)}`;
     if(!location.hash) location.hash = '#home';
     setRoute(location.hash);
   })();
