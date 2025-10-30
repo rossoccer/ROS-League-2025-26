@@ -65,7 +65,7 @@
     @media (min-width:980px){
       .homeGrid{grid-template-columns:3fr 2fr; grid-template-rows:auto 1fr; align-items:stretch}
       .homeGrid > .card{height:100%}
-      #homeFixtures{grid-column:1;grid-row:1}
+      #homeRecent{grid-column:1;grid-row:1}
       #homeTable{ grid-column:1;grid-row:2}
       #homeScorers{grid-column:2;grid-row:1}
       #homeAssisters{grid-column:2;grid-row:2}
@@ -82,7 +82,7 @@
     .teamName{font-weight:800;font-size:17px}
     .teamLogo{width:28px;height:28px;object-fit:contain;border-radius:6px}
     .scoreBig{font-size:38px;font-weight:900;text-align:center;min-width:120px}
-    #homeFixtures .bd{max-height:320px;overflow:auto}
+    #homeRecent .bd{max-height:320px;overflow:auto}
 
     /* League Table */
     #homeTable .bd{height:100%;display:flex;flex-direction:column}
@@ -137,9 +137,9 @@
   <section id="home" hidden>
     <div class="infoBg">
       <div class="homeGrid">
-        <div class="card" id="homeFixtures">
-          <div class="hd"><h2>This Week's Fixtures</h2></div>
-          <div class="bd" id="thisWeekFixtures"></div>
+        <div class="card" id="homeRecent">
+          <div class="hd"><h2>Latest Matchweek Scores</h2></div>
+          <div class="bd" id="thisWeekResults"></div>
         </div>
         <div class="card" id="homeScorers">
           <div class="hd"><h2>Most Goals</h2><span class="badge" id="maxGoals">—</span></div>
@@ -262,7 +262,7 @@
       { id:'T2', name:'Sagol Er Dol',        short:'SED', color:'#ffffff' }, // white
       { id:'T3', name:'Crack Platoon',       short:'CPL', color:'#1d4ed8' }, // blue
       { id:'T4', name:'Gunners',             short:'GUN', color:'#ef4444' }, // red
-      { id:'T5', name:'Goal Dile Bhat Free', short:'GDB', color:'#facc15' }  // green
+      { id:'T5', name:'Goal Dile Bhat Free', short:'GDB', color:'#facc15' }  // yellow
     ],
 
     // All names capitalized, captains/keepers flagged, stats = 0
@@ -328,50 +328,54 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Empty results to start; add as games finish
-    matches: [ ],
+    // Week 1 results entered
+    matches: [
+      // Round 1 — Oct 29, 2025
+      { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' }, // Crack 3–4 Sagol
+      { id:'R1G2', round:1, date:'2025-10-29', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:2, status:'final' }  // Adda 3–2 GDB
+    ],
 
-    // Correct schedule (ALL DATES FIXED as provided)
+    // Correct schedule (future rounds pending; R1 marked final)
     schedule: [
       // Round 1 — Oct 29, 2025
-      { id:'R1G1', round:1, date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'scheduled' }, // CPL vs SED
-      { id:'R1G2', round:1, date:'2025-10-29', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'scheduled' }, // ADD vs GDB
+      { id:'R1G1', round:1, date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'final' },
+      { id:'R1G2', round:1, date:'2025-10-29', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'final' },
 
       // Round 2 — Nov 5, 2025
-      { id:'R2G1', round:2, date:'2025-11-05', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'scheduled' }, // GDB vs SED
-      { id:'R2G2', round:2, date:'2025-11-05', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'scheduled' }, // GUN vs CPL
+      { id:'R2G1', round:2, date:'2025-11-05', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'scheduled' },
+      { id:'R2G2', round:2, date:'2025-11-05', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'scheduled' },
 
       // Round 3 — Nov 12, 2025
-      { id:'R3G1', round:3, date:'2025-11-12', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T1', away:'T2', status:'scheduled' }, // ADD vs SED
-      { id:'R3G2', round:3, date:'2025-11-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'scheduled' }, // GUN vs GDB
+      { id:'R3G1', round:3, date:'2025-11-12', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T1', away:'T2', status:'scheduled' },
+      { id:'R3G2', round:3, date:'2025-11-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'scheduled' },
 
       // Round 4 — Nov 19, 2025
-      { id:'R4G1', round:4, date:'2025-11-19', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T1', status:'scheduled' }, // GUN vs ADD
-      { id:'R4G2', round:4, date:'2025-11-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'scheduled' }, // CPL vs GDB
+      { id:'R4G1', round:4, date:'2025-11-19', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T1', status:'scheduled' },
+      { id:'R4G2', round:4, date:'2025-11-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'scheduled' },
 
       // Round 5 — Nov 26, 2025
-      { id:'R5G1', round:5, date:'2025-11-26', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' }, // GUN vs SED
-      { id:'R5G2', round:5, date:'2025-11-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'scheduled' }, // ADD vs CPL
+      { id:'R5G1', round:5, date:'2025-11-26', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' },
+      { id:'R5G2', round:5, date:'2025-11-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'scheduled' },
 
       // Round 6 — Dec 3, 2025
-      { id:'R6G1', round:6, date:'2025-12-03', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'scheduled' }, // CPL vs SED
-      { id:'R6G2', round:6, date:'2025-12-03', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'scheduled' }, // ADD vs GDB
+      { id:'R6G1', round:6, date:'2025-12-03', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'scheduled' },
+      { id:'R6G2', round:6, date:'2025-12-03', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'scheduled' },
 
       // Round 7 — Dec 10, 2025
-      { id:'R7G1', round:7, date:'2025-12-10', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'scheduled' }, // GDB vs SED
-      { id:'R7G2', round:7, date:'2025-12-10', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'scheduled' }, // GUN vs CPL
+      { id:'R7G1', round:7, date:'2025-12-10', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'scheduled' },
+      { id:'R7G2', round:7, date:'2025-12-10', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'scheduled' },
 
       // Round 8 — Jan 12, 2026
-      { id:'R8G1', round:8, date:'2026-01-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T2', status:'scheduled' }, // ADD vs SED
-      { id:'R8G2', round:8, date:'2026-01-12', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'scheduled' }, // GUN vs GDB
+      { id:'R8G1', round:8, date:'2026-01-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T2', status:'scheduled' },
+      { id:'R8G2', round:8, date:'2026-01-12', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'scheduled' },
 
       // Round 9 — Jan 19, 2026
-      { id:'R9G1', round:9, date:'2026-01-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T1', status:'scheduled' }, // GUN vs ADD
-      { id:'R9G2', round:9, date:'2026-01-19', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'scheduled' }, // CPL vs GDB
+      { id:'R9G1', round:9, date:'2026-01-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T1', status:'scheduled' },
+      { id:'R9G2', round:9, date:'2026-01-19', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'scheduled' },
 
       // Round 10 — Jan 26, 2026
-      { id:'R10G1', round:10, date:'2026-01-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' }, // GUN vs SED
-      { id:'R10G2', round:10, date:'2026-01-26', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'scheduled' }, // ADD vs CPL
+      { id:'R10G1', round:10, date:'2026-01-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' },
+      { id:'R10G2', round:10, date:'2026-01-26', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'scheduled' },
 
       // Playoffs
       { id:'PO-SF1', stage:'Semi Final 1', date:'2026-02-02', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'1st Place', away:'2nd Place', status:'scheduled' },
@@ -380,7 +384,11 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    results: []
+    // Results page items (mirror of matches but with scorers buckets ready)
+    results: [
+      { id:'RES-R1G1', date:'2025-10-29', home:'T3', away:'T2', hs:3, as:4, scorers:{ T3:[], T2:[] } },
+      { id:'RES-R1G2', date:'2025-10-29', home:'T1', away:'T5', hs:3, as:2, scorers:{ T1:[], T5:[] } }
+    ]
   };
 
   // ========= Utils =========
@@ -454,37 +462,37 @@
     list(assisters, 'topAssisters', 'assists');
   }
 
-  // ========= HOME FIXTURES =========
-  function fixturesForNextMatchday(){
-    const today = new Date();
-    const upcoming = [...data.schedule].filter(g=> !isNaN(new Date(g.date)) ).sort((a,b)=> new Date(a.date)-new Date(b.date));
-    const next = upcoming.find(g=> new Date(g.date) >= new Date(today.toDateString()) );
-    if(!next) return [];
-    return upcoming.filter(g=> g.date===next.date);
+  // ========= HOME — LATEST MATCHWEEK RESULTS (with logos) =========
+  function latestResultsDay(){
+    if(!data.results.length) return null;
+    const dates = [...new Set(data.results.map(r=>r.date))].sort((a,b)=> new Date(b)-new Date(a));
+    return dates[0] || null;
   }
-  function renderHomeFixtures(){
-    const mount = byId('thisWeekFixtures');
-    const games = fixturesForNextMatchday();
+  function renderHomeResults(){
+    const mount = byId('thisWeekResults');
+    const day = latestResultsDay();
     mount.innerHTML = '';
-    if(!games.length){ mount.innerHTML = '<div class="muted">No upcoming fixtures.</div>'; return; }
+    if(!day){ mount.innerHTML = '<div class="muted">No results yet.</div>'; return; }
+    const dayResults = data.results.filter(r=> r.date===day);
+
     const info = document.createElement('div');
     info.className='muted'; info.style.margin='0 0 8px 0';
-    info.textContent = new Date(games[0].date+"T12:00:00").toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+    info.textContent = new Date(day+"T12:00:00").toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
     mount.appendChild(info);
 
-    games.forEach(g=>{
-      const ht = teamById(g.home) || {name:g.home, color:'#2563eb'};
-      const at = teamById(g.away) || {name:g.away, color:'#7c3aed'};
+    dayResults.forEach(r=>{
+      const ht = teamById(r.home) || {name:r.home, color:'#2563eb'};
+      const at = teamById(r.away) || {name:r.away, color:'#7c3aed'};
       const leftColor = isLight(ht.color) ? '#111111' : ht.color;
       const rightColor = isLight(at.color) ? '#111111' : at.color;
       const leftStyle = `color:${leftColor};${isLight(ht.color)?'border:1px solid #e2e8f0;padding:2px 6px;border-radius:8px':''}`;
       const rightStyle = `color:${rightColor};${isLight(at.color)?'border:1px solid #e2e8f0;padding:2px 6px;border-radius:8px':''}`;
       const row = document.createElement('div'); row.className='matchRow';
-      const lsrc = data.logoSrc[g.home] || '';
-      const rsrc = data.logoSrc[g.away] || '';
+      const lsrc = data.logoSrc[r.home] || '';
+      const rsrc = data.logoSrc[r.away] || '';
       row.innerHTML = `
         <div class="teamSide"><img class="teamLogo" src="${lsrc}" alt="${ht.name} logo"><span class="teamName" style="${leftStyle}">${ht.name}</span></div>
-        <div class="scoreBig" style="font-size:22px;min-width:auto">${g.time.replace(' – ','–')}</div>
+        <div class="scoreBig">${r.hs}&nbsp;–&nbsp;${r.as}</div>
         <div class="teamSide" style="justify-content:flex-end"><span class="teamName" style="${rightStyle}">${at.name}</span><img class="teamLogo" src="${rsrc}" alt="${at.name} logo"></div>`;
       mount.appendChild(row);
     });
@@ -554,7 +562,7 @@
     const route = (hash||'#home').split('?')[0];
     sections.forEach(id=>{ (document.getElementById(id)||{}).hidden = ('#'+id)!==route; });
     document.querySelectorAll('.tab').forEach(btn=> btn.setAttribute('aria-current', btn.dataset.route===route?'page':'false'));
-    if(route==="#home"){ renderHomeFixtures(); renderTable(); renderLeaders(); }
+    if(route==="#home"){ renderHomeResults(); renderTable(); renderLeaders(); }
     if(route==="#schedule"){ renderSchedule(); }
     if(route==="#rosters"){ renderRosters(); }
     if(route==="#results"){ renderResults(); }
