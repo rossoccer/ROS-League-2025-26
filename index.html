@@ -265,7 +265,7 @@
       { id:'T5', name:'Goal Dile Bhat Free', short:'GDB', color:'#facc15' }  // yellow
     ],
 
-    // All names capitalized; base stats = 0
+    // Players (carry over)
     players: [
       // Gunners
       { id:'P401', teamId:'T4', name:'Shafiq', position:'C', goals:0, assists:0 },
@@ -277,12 +277,12 @@
       { id:'P407', teamId:'T4', name:'Ruhaan', goals:0, assists:0 },
       { id:'P408', teamId:'T4', name:'Tarek', goals:0, assists:0 },
       { id:'P409', teamId:'T4', name:'Tahsin', goals:0, assists:0 },
-      { id:'P410', teamId:'T4', name:'Ahnaf', goals:0, assists:0 }, // second Ahnaf
+      { id:'P410', teamId:'T4', name:'Ahnaf', goals:0, assists:0 },
 
       // Crack Platoon
       { id:'P301', teamId:'T3', name:'Arian', position:'C', goals:0, assists:0 },
       { id:'P302', teamId:'T3', name:'Alif', position:'GK', goals:0, assists:0 },
-      { id:'P303', teamId:'T3', name:'Sowad', goals:0, assists:0 },            // fixed spelling
+      { id:'P303', teamId:'T3', name:'Sowaad', goals:0, assists:0 },
       { id:'P304', teamId:'T3', name:'Zareef', goals:0, assists:0 },
       { id:'P305', teamId:'T3', name:'Kaysh', goals:0, assists:0 },
       { id:'P306', teamId:'T3', name:'Sabir', goals:0, assists:0 },
@@ -317,72 +317,89 @@
 
       // Adda Athletic
       { id:'P101', teamId:'T1', name:'Tarun', position:'C', goals:0, assists:0 },
-      { id:'P102', teamId:'T1', name:'Aymaan', position:'GK', goals:0, assists:0 },
+      { id:'P102', teamId:'T1', name:'Aymann', position:'GK', goals:0, assists:0 },
       { id:'P103', teamId:'T1', name:'Adeeb', goals:0, assists:0 },
       { id:'P104', teamId:'T1', name:'Kabir', goals:0, assists:0 },
       { id:'P105', teamId:'T1', name:'Sadman Kabir', goals:0, assists:0 },
       { id:'P106', teamId:'T1', name:'Niaz', goals:0, assists:0 },
-      { id:'P107', teamId:'T1', name:'Aymaan Alamgir', goals:0, assists:0 },  // fixed spelling
+      { id:'P107', teamId:'T1', name:'Aymaan Alamgir', goals:0, assists:0 },
       { id:'P108', teamId:'T1', name:'Monjur', goals:0, assists:0 },
       { id:'P109', teamId:'T1', name:'Tabeeb', goals:0, assists:0 },
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Week 1 results entered
+    // Matches (updated with GW2 finals)
     matches: [
-      { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' }, // Crack 3–4 Sagol
-      { id:'R1G2', round:1, date:'2025-10-29', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:2, status:'final' }  // Adda 3–2 GDB
+      // Round 1 — Oct 29, 2025
+      { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
+      { id:'R1G2', round:1, date:'2025-10-29', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:2, status:'final' },
+
+      // Round 2 — Nov 5, 2025
+      { id:'R2G1', round:2, date:'2025-11-05', homeTeamId:'T5', awayTeamId:'T2', homeScore:8, awayScore:8, status:'final' },
+      { id:'R2G2', round:2, date:'2025-11-05', homeTeamId:'T4', awayTeamId:'T3', homeScore:3, awayScore:3, status:'final' }
     ],
 
-    // Schedule (R1 final)
+    // Schedule (R2 set to final)
     schedule: [
+      // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'final' },
       { id:'R1G2', round:1, date:'2025-10-29', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'final' },
 
-      { id:'R2G1', round:2, date:'2025-11-05', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'scheduled' },
-      { id:'R2G2', round:2, date:'2025-11-05', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'scheduled' },
+      // Round 2 — Nov 5, 2025
+      { id:'R2G1', round:2, date:'2025-11-05', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'final' },
+      { id:'R2G2', round:2, date:'2025-11-05', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'final' },
 
+      // Round 3 — Nov 12, 2025
       { id:'R3G1', round:3, date:'2025-11-12', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T1', away:'T2', status:'scheduled' },
       { id:'R3G2', round:3, date:'2025-11-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'scheduled' },
 
+      // Round 4 — Nov 19, 2025
       { id:'R4G1', round:4, date:'2025-11-19', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T1', status:'scheduled' },
       { id:'R4G2', round:4, date:'2025-11-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'scheduled' },
 
+      // Round 5 — Nov 26, 2025
       { id:'R5G1', round:5, date:'2025-11-26', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' },
       { id:'R5G2', round:5, date:'2025-11-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'scheduled' },
 
+      // Round 6 — Dec 3, 2025
       { id:'R6G1', round:6, date:'2025-12-03', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'scheduled' },
       { id:'R6G2', round:6, date:'2025-12-03', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'scheduled' },
 
+      // Round 7 — Dec 10, 2025
       { id:'R7G1', round:7, date:'2025-12-10', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'scheduled' },
       { id:'R7G2', round:7, date:'2025-12-10', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'scheduled' },
 
+      // Round 8 — Jan 12, 2026
       { id:'R8G1', round:8, date:'2026-01-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T2', status:'scheduled' },
       { id:'R8G2', round:8, date:'2026-01-12', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'scheduled' },
 
+      // Round 9 — Jan 19, 2026
       { id:'R9G1', round:9, date:'2026-01-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T1', status:'scheduled' },
       { id:'R9G2', round:9, date:'2026-01-19', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'scheduled' },
 
+      // Round 10 — Jan 26, 2026
       { id:'R10G1', round:10, date:'2026-01-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' },
       { id:'R10G2', round:10, date:'2026-01-26', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'scheduled' },
 
+      // Playoffs
       { id:'PO-SF1', stage:'Semi Final 1', date:'2026-02-02', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'1st Place', away:'2nd Place', status:'scheduled' },
       { id:'PO-QF',  stage:'Quarter Final', date:'2026-02-02', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'3rd Place', away:'4th Place', status:'scheduled' },
       { id:'PO-SF2', stage:'Semi Final 2', date:'2026-02-03', time:'TBD (Feb 3–8)', venue:'Bell Sensplex', home:'Loser SF1', away:'Winner QF', status:'scheduled' },
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (now with GDB scorers + assists and YouTube link slot)
+    // Results (added GW2; GW1 includes detailed scorers)
     results: [
+      // GW1
       {
         id:'RES-R1G1',
         date:'2025-10-29',
         home:'T3', away:'T2', hs:3, as:4,
         scorers:{
-          T3:["Sowad (3) — AST: Tahmid (2)"],
+          T3:["Sowaad (3) — AST: Tahmid (2)"],
           T2:["Saadman (3), Zarif Jr (1) — AST: Sindeed (2), Ilham (1)"]
         },
-        video:"https://youtu.be/0qn56BaI-p8?si=F0ngKFkf4PB02ytS"
+        video:"ADD_LINK_HERE"
       },
       {
         id:'RES-R1G2',
@@ -390,9 +407,25 @@
         home:'T1', away:'T5', hs:3, as:2,
         scorers:{
           T1:["Adeeb (2), Monjur (1) — AST: Sadman Kabir (1), Aymaan Alamgir (1)"],
-          T5:["Abdu (1), Arif (1) — AST: Egal (1), Abdu (1)"]
+          T5:["Arif (2), Abdu (1) — AST: Egal (1), Abdu (1)"]
         },
-        video:"https://youtu.be/YtLpKNUTD28?si=HCsWdfKYolkt14p6"
+        video:"ADD_LINK_HERE"
+      },
+
+      // GW2 — Nov 5, 2025
+      {
+        id:'RES-R2G1',
+        date:'2025-11-05',
+        home:'T5', away:'T2', hs:8, as:8,
+        scorers:{ T5:["—"], T2:["—"] },
+        video:"ADD_LINK_HERE"
+      },
+      {
+        id:'RES-R2G2',
+        date:'2025-11-05',
+        home:'T4', away:'T3', hs:3, as:3,
+        scorers:{ T4:["—"], T3:["—"] },
+        video:"ADD_LINK_HERE"
       }
     ]
   };
@@ -406,8 +439,8 @@
   function hexToRgb(hex){ const h = (hex||'').replace('#',''); const bigint = parseInt(h.length===3 ? h.split('').map(x=>x+x).join('') : h, 16); return {r:(bigint>>16)&255, g:(bigint>>8)&255, b:(bigint)&255}; }
   function isLight(hex){ try{ const {r,g,b}=hexToRgb(hex); const l=(0.2126*r+0.7152*g+0.0722*b)/255; return l>0.85; }catch{ return false; } }
 
-  // ========= Apply GW1 stats to players =========
-  (function applyGW1(){
+  // ========= (Optional) apply GW1 player stats only (GW2 unknown scorers) =========
+  ;(function applyGW1(){
     const addGA = (name, key, val, teamId=null) => {
       let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
       if(!p){
@@ -418,24 +451,24 @@
       if(p){ p[key]=(p[key]||0)+val; }
     };
 
-    // Sagol Er Dol (T2): Saadman x3, Zarif Jr x1; AST: Sindeed x2, Ilham x1
+    // GW1 — SED
     addGA('Saadman','goals',3,'T2');
     addGA('Zarif Jr','goals',1,'T2');
     addGA('Sindeed','assists',2,'T2');
     addGA('Ilham','assists',1,'T2');
 
-    // Crack (T3): Sowaad x3; AST: Tahmid x2
-    addGA('Sowad','goals',3,'T3');
+    // GW1 — Crack
+    addGA('Sowaad','goals',3,'T3');
     addGA('Tahmid','assists',2,'T3');
 
-    // Adda (T1): Adeeb x2, Monjur x1; AST: Sadman Kabir x1, Aymaan Alamgir x1
+    // GW1 — Adda
     addGA('Adeeb','goals',2,'T1');
     addGA('Monjur','goals',1,'T1');
     addGA('Sadman Kabir','assists',1,'T1');
     addGA('Aymaan Alamgir','assists',1,'T1');
 
-    // Goal Dile Bhat Free (T5): Abdu x1, Arif x2; AST: Egal x1, Abdu x1
-    addGA('Arif','goals',1,'T5');
+    // GW1 — GDB
+    addGA('Arif','goals',2,'T5');
     addGA('Abdu','goals',1,'T5');
     addGA('Egal','assists',1,'T5');
     addGA('Abdu','assists',1,'T5');
@@ -478,7 +511,7 @@
     byId('lastUpdated').textContent = 'Updated ' + new Date().toLocaleString();
   }
 
-  // ========= Leaders (no role shown on Home) =========
+  // ========= Leaders (roles hidden on Home) =========
   function topPlayers(key, limit=5){ return [...data.players].sort((a,b)=> (b[key]??0)-(a[key]??0) || a.name.localeCompare(b.name)).slice(0,limit); }
   function renderLeaders(){
     const scorers = topPlayers('goals',5);
@@ -665,4 +698,3 @@
 </script>
 </body>
 </html>
-
