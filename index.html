@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -265,7 +266,7 @@
       { id:'T5', name:'Goal Dile Bhat Free', short:'GDB', color:'#facc15' }  // yellow
     ],
 
-    // Players (carry over)
+    // Players (note: second Ahnaf renamed to "Ahnaf Jr" for clarity)
     players: [
       // Gunners
       { id:'P401', teamId:'T4', name:'Shafiq', position:'C', goals:0, assists:0 },
@@ -277,12 +278,12 @@
       { id:'P407', teamId:'T4', name:'Ruhaan', goals:0, assists:0 },
       { id:'P408', teamId:'T4', name:'Tarek', goals:0, assists:0 },
       { id:'P409', teamId:'T4', name:'Tahsin', goals:0, assists:0 },
-      { id:'P410', teamId:'T4', name:'Ahnaf', goals:0, assists:0 },
+      { id:'P410', teamId:'T4', name:'Ahnaf Jr', goals:0, assists:0 }, // ← renamed
 
       // Crack Platoon
       { id:'P301', teamId:'T3', name:'Arian', position:'C', goals:0, assists:0 },
       { id:'P302', teamId:'T3', name:'Alif', position:'GK', goals:0, assists:0 },
-      { id:'P303', teamId:'T3', name:'Sowaad', goals:0, assists:0 },
+      { id:'P303', teamId:'T3', name:'Sowaad', goals:0, assists:0 },            // roster name uses "Sowaad"
       { id:'P304', teamId:'T3', name:'Zareef', goals:0, assists:0 },
       { id:'P305', teamId:'T3', name:'Kaysh', goals:0, assists:0 },
       { id:'P306', teamId:'T3', name:'Sabir', goals:0, assists:0 },
@@ -328,7 +329,7 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Matches (updated with GW2 finals)
+    // Matches (R1 and R2 final)
     matches: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
@@ -388,7 +389,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (added GW2; GW1 includes detailed scorers)
+    // Results (with detailed GW2 and video links)
     results: [
       // GW1
       {
@@ -417,15 +418,21 @@
         id:'RES-R2G1',
         date:'2025-11-05',
         home:'T5', away:'T2', hs:8, as:8,
-        scorers:{ T5:["—"], T2:["—"] },
-        video:"ADD_LINK_HERE"
+        scorers:{
+          T5:["Tanzil (3), Abeed (2), Egal (2), Fardin (1) — AST: Fardin (2), Abeed (1), Egal (1), Tanzil (1)"],
+          T2:["Jabir (3), Saadman (2), Zarif Jr (1), Murshed (1), Own Goal (1) — AST: Saadman (4), Jabir (2), Sindeed (1)"]
+        },
+        video:"https://youtu.be/DutbQ2NoM-0"
       },
       {
         id:'RES-R2G2',
         date:'2025-11-05',
         home:'T4', away:'T3', hs:3, as:3,
-        scorers:{ T4:["—"], T3:["—"] },
-        video:"ADD_LINK_HERE"
+        scorers:{
+          T4:["Tarek (1), Tazin (1), Tahsin (1) — AST: Ahnaf Jr (1), Zee Chow (1)"],
+          T3:["Arian (1), Sowad (1), Sadman Sajid (1) — AST: Ron (1), Sowad (1)"]
+        },
+        video:"https://youtu.be/VuPQId4Xat0"
       }
     ]
   };
@@ -439,7 +446,7 @@
   function hexToRgb(hex){ const h = (hex||'').replace('#',''); const bigint = parseInt(h.length===3 ? h.split('').map(x=>x+x).join('') : h, 16); return {r:(bigint>>16)&255, g:(bigint>>8)&255, b:(bigint)&255}; }
   function isLight(hex){ try{ const {r,g,b}=hexToRgb(hex); const l=(0.2126*r+0.7152*g+0.0722*b)/255; return l>0.85; }catch{ return false; } }
 
-  // ========= (Optional) apply GW1 player stats only (GW2 unknown scorers) =========
+  // ========= Apply GW1 stats =========
   ;(function applyGW1(){
     const addGA = (name, key, val, teamId=null) => {
       let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
@@ -472,6 +479,61 @@
     addGA('Abdu','goals',1,'T5');
     addGA('Egal','assists',1,'T5');
     addGA('Abdu','assists',1,'T5');
+  })();
+
+  // ========= Apply GW2 stats (from your message) =========
+  ;(function applyGW2(){
+    const alias = (n)=> n==='Sowad' ? 'Sowaad' : n; // map message name -> roster name
+    const addGA = (name, key, val, teamId=null) => {
+      const target = alias(name);
+      let p = data.players.find(x=>x.name===target && (!teamId || x.teamId===teamId));
+      if(!p){
+        const lname = target.toLowerCase();
+        p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
+          || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
+      }
+      if(p){ p[key]=(p[key]||0)+val; }
+    };
+
+    // R2G1 — GDB 8–8 SED
+    // GDB (T5) goals: Abeed 2, Tanzil 3, Fardin 1, Egal 2
+    addGA('Abeed','goals',2,'T5');
+    addGA('Tanzil','goals',3,'T5');
+    addGA('Fardin','goals',1,'T5');
+    addGA('Egal','goals',2,'T5');
+    // GDB assists: Abeed 1, Fardin 2, Egal 1, Tanzil 1
+    addGA('Abeed','assists',1,'T5');
+    addGA('Fardin','assists',2,'T5');
+    addGA('Egal','assists',1,'T5');
+    addGA('Tanzil','assists',1,'T5');
+
+    // SED (T2) goals: Saadman 2, Jabir 3, Zarif Jr 1, Murshed 1, 1 Own goal
+    addGA('Saadman','goals',2,'T2');
+    addGA('Jabir','goals',3,'T2');
+    addGA('Zarif Jr','goals',1,'T2');
+    addGA('Murshed','goals',1,'T2');
+    // (Own goal doesn't credit any player)
+    // SED assists: Saadman 4, Jabir 2, Sindeed 1
+    addGA('Saadman','assists',4,'T2');
+    addGA('Jabir','assists',2,'T2');
+    addGA('Sindeed','assists',1,'T2');
+
+    // R2G2 — GUN 3–3 CPL
+    // GUN (T4) goals: Tarek 1, Tazin 1, Tahsin 1
+    addGA('Tarek','goals',1,'T4');
+    addGA('Tazin','goals',1,'T4');
+    addGA('Tahsin','goals',1,'T4');
+    // GUN assists: Ahnaf Jr 1, Zee Chow 1
+    addGA('Ahnaf Jr','assists',1,'T4');
+    addGA('Zee Chow','assists',1,'T4');
+
+    // CPL (T3) goals: Sowad 1, Sadman Sajid 1, Arian 1
+    addGA('Sowad','goals',1,'T3'); // will map to "Sowaad"
+    addGA('Sadman Sajid','goals',1,'T3');
+    addGA('Arian','goals',1,'T3');
+    // CPL assists: Ron 1, Sowad 1
+    addGA('Ron','assists',1,'T3');
+    addGA('Sowad','assists',1,'T3'); // map to "Sowaad"
   })();
 
   // ========= Standings =========
@@ -698,3 +760,5 @@
 </script>
 </body>
 </html>
+```
+
