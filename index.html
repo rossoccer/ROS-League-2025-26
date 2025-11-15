@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -329,7 +328,7 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Matches (R1 and R2 final)
+    // Matches (R1, R2, R3 final)
     matches: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
@@ -337,10 +336,14 @@
 
       // Round 2 — Nov 5, 2025
       { id:'R2G1', round:2, date:'2025-11-05', homeTeamId:'T5', awayTeamId:'T2', homeScore:8, awayScore:8, status:'final' },
-      { id:'R2G2', round:2, date:'2025-11-05', homeTeamId:'T4', awayTeamId:'T3', homeScore:3, awayScore:3, status:'final' }
+      { id:'R2G2', round:2, date:'2025-11-05', homeTeamId:'T4', awayTeamId:'T3', homeScore:3, awayScore:3, status:'final' },
+
+      // Round 3 — Nov 12, 2025
+      { id:'R3G1', round:3, date:'2025-11-12', homeTeamId:'T1', awayTeamId:'T2', homeScore:5, awayScore:4, status:'final' },
+      { id:'R3G2', round:3, date:'2025-11-12', homeTeamId:'T4', awayTeamId:'T5', homeScore:3, awayScore:1, status:'final' }
     ],
 
-    // Schedule (R2 set to final)
+    // Schedule (R2, R3 set to final)
     schedule: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'final' },
@@ -351,8 +354,8 @@
       { id:'R2G2', round:2, date:'2025-11-05', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'final' },
 
       // Round 3 — Nov 12, 2025
-      { id:'R3G1', round:3, date:'2025-11-12', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T1', away:'T2', status:'scheduled' },
-      { id:'R3G2', round:3, date:'2025-11-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'scheduled' },
+      { id:'R3G1', round:3, date:'2025-11-12', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T1', away:'T2', status:'final' },
+      { id:'R3G2', round:3, date:'2025-11-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'final' },
 
       // Round 4 — Nov 19, 2025
       { id:'R4G1', round:4, date:'2025-11-19', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T1', status:'scheduled' },
@@ -389,7 +392,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (with detailed GW2 and video links)
+    // Results (with detailed GW2, plus GW3 shell, and video links)
     results: [
       // GW1
       {
@@ -433,6 +436,28 @@
           T3:["Arian (1), Sowad (1), Sadman Sajid (1) — AST: Ron (1), Sowad (1)"]
         },
         video:"https://youtu.be/VuPQId4Xat0"
+      },
+
+      // GW3 — Nov 12, 2025 (no scorer breakdown yet)
+      {
+        id:'RES-R3G1',
+        date:'2025-11-12',
+        home:'T1', away:'T2', hs:5, as:4,
+        scorers:{
+          T1:[],
+          T2:[]
+        },
+        video:""
+      },
+      {
+        id:'RES-R3G2',
+        date:'2025-11-12',
+        home:'T4', away:'T5', hs:3, as:1,
+        scorers:{
+          T4:[],
+          T5:[]
+        },
+        video:""
       }
     ]
   };
@@ -760,6 +785,3 @@
 </script>
 </body>
 </html>
-```
-
-
