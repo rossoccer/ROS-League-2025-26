@@ -392,7 +392,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (with detailed GW2, plus GW3 shell, and video links)
+    // Results (with detailed GW2, plus GW3 now filled, and video links)
     results: [
       // GW1
       {
@@ -438,14 +438,14 @@
         video:"https://youtu.be/VuPQId4Xat0"
       },
 
-      // GW3 — Nov 12, 2025 (no scorer breakdown yet)
+      // GW3 — Nov 12, 2025
       {
         id:'RES-R3G1',
         date:'2025-11-12',
         home:'T1', away:'T2', hs:5, as:4,
         scorers:{
-          T1:[],
-          T2:[]
+          T1:["Adeeb (4), Monjur (1) — AST: Aymaan Alamgir (1), Sadman Kabir (1), Monjur (1), Tarun (1)"],
+          T2:["Ilham (1), Sindeed (1), Murshed (1), Saadman (1) — AST: Saadman (2), Sindeed (1), Jabir (1)"]
         },
         video:""
       },
@@ -454,8 +454,8 @@
         date:'2025-11-12',
         home:'T4', away:'T5', hs:3, as:1,
         scorers:{
-          T4:[],
-          T5:[]
+          T4:["Tazin (2), Ahnaf Jr (1) — AST: Neo (1), Tazin (1)"],
+          T5:["Egal (1) — AST: Abeed (1)"]
         },
         video:""
       }
@@ -559,6 +559,51 @@
     // CPL assists: Ron 1, Sowad 1
     addGA('Ron','assists',1,'T3');
     addGA('Sowad','assists',1,'T3'); // map to "Sowaad"
+  })();
+
+  // ========= Apply GW3 stats (from your new breakdown) =========
+  ;(function applyGW3(){
+    const addGA = (name, key, val, teamId=null) => {
+      let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
+      if(!p){
+        const lname = name.toLowerCase();
+        p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
+          || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
+      }
+      if(p){ p[key]=(p[key]||0)+val; }
+    };
+
+    // R3G1 — T1 5–4 T2
+    // Adda (T1) goals: Adeeb x4, Monjur x1
+    addGA('Adeeb','goals',4,'T1');
+    addGA('Monjur','goals',1,'T1');
+    // Adda assists: Aymaan Alamgir, Sadman Kabir, Monjur, Tarun
+    addGA('Aymaan Alamgir','assists',1,'T1');
+    addGA('Sadman Kabir','assists',1,'T1');
+    addGA('Monjur','assists',1,'T1');
+    addGA('Tarun','assists',1,'T1');
+
+    // SED (T2) goals: Ilham, Sindeed, Murshed, Saadman
+    addGA('Ilham','goals',1,'T2');
+    addGA('Sindeed','goals',1,'T2');
+    addGA('Murshed','goals',1,'T2');
+    addGA('Saadman','goals',1,'T2');
+    // SED assists: Saadman x2, Sindeed, Jabir
+    addGA('Saadman','assists',2,'T2');
+    addGA('Sindeed','assists',1,'T2');
+    addGA('Jabir','assists',1,'T2');
+
+    // R3G2 — Gunners 3–1 GDB
+    // GDB (T5) goals: Egal; assists: Abeed
+    addGA('Egal','goals',1,'T5');
+    addGA('Abeed','assists',1,'T5');
+
+    // Gunners (T4) goals: Tazin x2, Ahnaf Jr x1
+    addGA('Tazin','goals',2,'T4');
+    addGA('Ahnaf Jr','goals',1,'T4');
+    // Gunners assists: Neo, Tazin
+    addGA('Neo','assists',1,'T4');
+    addGA('Tazin','assists',1,'T4');
   })();
 
   // ========= Standings =========
