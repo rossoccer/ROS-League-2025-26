@@ -265,7 +265,7 @@
       { id:'T5', name:'Goal Dile Bhat Free', short:'GDB', color:'#facc15' }  // yellow
     ],
 
-    // Players (note: second Ahnaf renamed to "Ahnaf Jr" for clarity)
+    // Players
     players: [
       // Gunners
       { id:'P401', teamId:'T4', name:'Shafiq', position:'C', goals:0, assists:0 },
@@ -277,12 +277,12 @@
       { id:'P407', teamId:'T4', name:'Ruhaan', goals:0, assists:0 },
       { id:'P408', teamId:'T4', name:'Tarek', goals:0, assists:0 },
       { id:'P409', teamId:'T4', name:'Tahsin', goals:0, assists:0 },
-      { id:'P410', teamId:'T4', name:'Ahnaf Jr', goals:0, assists:0 }, // ← renamed
+      { id:'P410', teamId:'T4', name:'Ahnaf Jr', goals:0, assists:0 },
 
       // Crack Platoon
       { id:'P301', teamId:'T3', name:'Arian', position:'C', goals:0, assists:0 },
       { id:'P302', teamId:'T3', name:'Alif', position:'GK', goals:0, assists:0 },
-      { id:'P303', teamId:'T3', name:'Sowaad', goals:0, assists:0 },            // roster name uses "Sowaad"
+      { id:'P303', teamId:'T3', name:'Sowaad', goals:0, assists:0 },
       { id:'P304', teamId:'T3', name:'Zareef', goals:0, assists:0 },
       { id:'P305', teamId:'T3', name:'Kaysh', goals:0, assists:0 },
       { id:'P306', teamId:'T3', name:'Sabir', goals:0, assists:0 },
@@ -328,7 +328,7 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Matches (R1, R2, R3, R4 final)
+    // Matches (R1–R5 final)
     matches: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
@@ -344,10 +344,14 @@
 
       // Round 4 — Nov 19, 2025
       { id:'R4G1', round:4, date:'2025-11-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:7, awayScore:3, status:'final' },
-      { id:'R4G2', round:4, date:'2025-11-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:2, awayScore:7, status:'final' }
+      { id:'R4G2', round:4, date:'2025-11-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:2, awayScore:7, status:'final' },
+
+      // Round 5 — Nov 26, 2025
+      { id:'R5G1', round:5, date:'2025-11-26', homeTeamId:'T4', awayTeamId:'T2', homeScore:2, awayScore:7, status:'final' },
+      { id:'R5G2', round:5, date:'2025-11-26', homeTeamId:'T1', awayTeamId:'T3', homeScore:5, awayScore:9, status:'final' }
     ],
 
-    // Schedule (R2, R3, R4 set to final)
+    // Schedule (R1–R5 set to final)
     schedule: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'final' },
@@ -366,8 +370,8 @@
       { id:'R4G2', round:4, date:'2025-11-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'final' },
 
       // Round 5 — Nov 26, 2025
-      { id:'R5G1', round:5, date:'2025-11-26', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' },
-      { id:'R5G2', round:5, date:'2025-11-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'scheduled' },
+      { id:'R5G1', round:5, date:'2025-11-26', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T2', status:'final' },
+      { id:'R5G2', round:5, date:'2025-11-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'final' },
 
       // Round 6 — Dec 3, 2025
       { id:'R6G1', round:6, date:'2025-12-03', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'scheduled' },
@@ -396,7 +400,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW4; GW3 has scorers, GW4 scorers TBD)
+    // Results (GW1–GW5; GW4–5 scorers TBD)
     results: [
       // GW1
       {
@@ -464,7 +468,7 @@
         video:""
       },
 
-      // GW4 — Nov 19, 2025 (no scorer breakdown yet)
+      // GW4 — Nov 19, 2025
       {
         id:'RES-R4G1',
         date:'2025-11-19',
@@ -482,6 +486,28 @@
         scorers:{
           T3:[],
           T5:[]
+        },
+        video:""
+      },
+
+      // GW5 — Nov 26, 2025
+      {
+        id:'RES-R5G1',
+        date:'2025-11-26',
+        home:'T4', away:'T2', hs:2, as:7,
+        scorers:{
+          T4:[],
+          T2:[]
+        },
+        video:""
+      },
+      {
+        id:'RES-R5G2',
+        date:'2025-11-26',
+        home:'T1', away:'T3', hs:5, as:9,
+        scorers:{
+          T1:[],
+          T3:[]
         },
         video:""
       }
@@ -534,7 +560,7 @@
 
   // ========= Apply GW2 stats =========
   ;(function applyGW2(){
-    const alias = (n)=> n==='Sowad' ? 'Sowaad' : n; // map message name -> roster name
+    const alias = (n)=> n==='Sowad' ? 'Sowaad' : n;
     const addGA = (name, key, val, teamId=null) => {
       const target = alias(name);
       let p = data.players.find(x=>x.name===target && (!teamId || x.teamId===teamId));
@@ -547,43 +573,39 @@
     };
 
     // R2G1 — GDB 8–8 SED
-    // GDB (T5) goals: Abeed 2, Tanzil 3, Fardin 1, Egal 2
     addGA('Abeed','goals',2,'T5');
     addGA('Tanzil','goals',3,'T5');
     addGA('Fardin','goals',1,'T5');
     addGA('Egal','goals',2,'T5');
-    // GDB assists: Abeed 1, Fardin 2, Egal 1, Tanzil 1
+
     addGA('Abeed','assists',1,'T5');
     addGA('Fardin','assists',2,'T5');
     addGA('Egal','assists',1,'T5');
     addGA('Tanzil','assists',1,'T5');
 
-    // SED (T2) goals: Saadman 2, Jabir 3, Zarif Jr 1, Murshed 1, 1 Own goal
     addGA('Saadman','goals',2,'T2');
     addGA('Jabir','goals',3,'T2');
     addGA('Zarif Jr','goals',1,'T2');
     addGA('Murshed','goals',1,'T2');
-    // SED assists: Saadman 4, Jabir 2, Sindeed 1
+
     addGA('Saadman','assists',4,'T2');
     addGA('Jabir','assists',2,'T2');
     addGA('Sindeed','assists',1,'T2');
 
     // R2G2 — GUN 3–3 CPL
-    // GUN (T4) goals: Tarek 1, Tazin 1, Tahsin 1
     addGA('Tarek','goals',1,'T4');
     addGA('Tazin','goals',1,'T4');
     addGA('Tahsin','goals',1,'T4');
-    // GUN assists: Ahnaf Jr 1, Zee Chow 1
+
     addGA('Ahnaf Jr','assists',1,'T4');
     addGA('Zee Chow','assists',1,'T4');
 
-    // CPL (T3) goals: Sowad 1, Sadman Sajid 1, Arian 1
-    addGA('Sowad','goals',1,'T3'); // maps to "Sowaad"
+    addGA('Sowad','goals',1,'T3');
     addGA('Sadman Sajid','goals',1,'T3');
     addGA('Arian','goals',1,'T3');
-    // CPL assists: Ron 1, Sowad 1
+
     addGA('Ron','assists',1,'T3');
-    addGA('Sowad','assists',1,'T3'); // maps to "Sowaad"
+    addGA('Sowad','assists',1,'T3');
   })();
 
   // ========= Apply GW3 stats =========
@@ -599,34 +621,30 @@
     };
 
     // R3G1 — Adda 5–4 Sagol
-    // Adda goals: Adeeb x4, Monjur x1
     addGA('Adeeb','goals',4,'T1');
     addGA('Monjur','goals',1,'T1');
-    // Adda assists: Aymaan Alamgir, Sadman Kabir, Monjur, Tarun (1 each)
+
     addGA('Aymaan Alamgir','assists',1,'T1');
     addGA('Sadman Kabir','assists',1,'T1');
     addGA('Monjur','assists',1,'T1');
     addGA('Tarun','assists',1,'T1');
 
-    // Sagol goals: Ilham, Sindeed, Murshed, Saadman
     addGA('Ilham','goals',1,'T2');
     addGA('Sindeed','goals',1,'T2');
     addGA('Murshed','goals',1,'T2');
     addGA('Saadman','goals',1,'T2');
-    // Sagol assists: Saadman x2, Sindeed, Jabir
+
     addGA('Saadman','assists',2,'T2');
     addGA('Sindeed','assists',1,'T2');
     addGA('Jabir','assists',1,'T2');
 
     // R3G2 — Gunners 3–1 GDB
-    // Gunners goals: Tazin x2, Ahnaf Jr x1
     addGA('Tazin','goals',2,'T4');
     addGA('Ahnaf Jr','goals',1,'T4');
-    // Gunners assists: Neo, Tazin
+
     addGA('Neo','assists',1,'T4');
     addGA('Tazin','assists',1,'T4');
 
-    // GDB goal: Egal x1; assist: Abeed
     addGA('Egal','goals',1,'T5');
     addGA('Abeed','assists',1,'T5');
   })();
@@ -680,7 +698,7 @@
     byId('lastUpdated').textContent = 'Updated ' + new Date().toLocaleString();
   }
 
-  // ========= Leaders (roles hidden on Home) =========
+  // ========= Leaders =========
   function topPlayers(key, limit=5){
     return [...data.players]
       .sort((a,b)=> (b[key]??0)-(a[key]??0) || a.name.localeCompare(b.name))
@@ -710,7 +728,7 @@
     list(assisters, 'topAssisters', 'assists');
   }
 
-  // ========= HOME — LATEST MATCHWEEK RESULTS (with logos) =========
+  // ========= HOME — LATEST MATCHWEEK RESULTS =========
   function latestResultsDay(){
     if(!data.results.length) return null;
     const dates = [...new Set(data.results.map(r=>r.date))]
