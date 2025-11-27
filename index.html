@@ -328,7 +328,7 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Matches (R1, R2, R3 final)
+    // Matches (R1, R2, R3, R4 final)
     matches: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
@@ -340,10 +340,14 @@
 
       // Round 3 — Nov 12, 2025
       { id:'R3G1', round:3, date:'2025-11-12', homeTeamId:'T1', awayTeamId:'T2', homeScore:5, awayScore:4, status:'final' },
-      { id:'R3G2', round:3, date:'2025-11-12', homeTeamId:'T4', awayTeamId:'T5', homeScore:3, awayScore:1, status:'final' }
+      { id:'R3G2', round:3, date:'2025-11-12', homeTeamId:'T4', awayTeamId:'T5', homeScore:3, awayScore:1, status:'final' },
+
+      // Round 4 — Nov 19, 2025
+      { id:'R4G1', round:4, date:'2025-11-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:7, awayScore:3, status:'final' },
+      { id:'R4G2', round:4, date:'2025-11-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:2, awayScore:7, status:'final' }
     ],
 
-    // Schedule (R2, R3 set to final)
+    // Schedule (R2, R3, R4 set to final)
     schedule: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'final' },
@@ -358,8 +362,8 @@
       { id:'R3G2', round:3, date:'2025-11-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'final' },
 
       // Round 4 — Nov 19, 2025
-      { id:'R4G1', round:4, date:'2025-11-19', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T1', status:'scheduled' },
-      { id:'R4G2', round:4, date:'2025-11-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'scheduled' },
+      { id:'R4G1', round:4, date:'2025-11-19', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T1', status:'final' },
+      { id:'R4G2', round:4, date:'2025-11-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'final' },
 
       // Round 5 — Nov 26, 2025
       { id:'R5G1', round:5, date:'2025-11-26', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' },
@@ -392,7 +396,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (with detailed GW2, plus GW3 now filled, and video links)
+    // Results (GW1–GW4; GW3 has scorers, GW4 scorers TBD)
     results: [
       // GW1
       {
@@ -458,6 +462,28 @@
           T5:["Egal (1) — AST: Abeed (1)"]
         },
         video:""
+      },
+
+      // GW4 — Nov 19, 2025 (no scorer breakdown yet)
+      {
+        id:'RES-R4G1',
+        date:'2025-11-19',
+        home:'T4', away:'T1', hs:7, as:3,
+        scorers:{
+          T4:[],
+          T1:[]
+        },
+        video:""
+      },
+      {
+        id:'RES-R4G2',
+        date:'2025-11-19',
+        home:'T3', away:'T5', hs:2, as:7,
+        scorers:{
+          T3:[],
+          T5:[]
+        },
+        video:""
       }
     ]
   };
@@ -506,7 +532,7 @@
     addGA('Abdu','assists',1,'T5');
   })();
 
-  // ========= Apply GW2 stats (from your message) =========
+  // ========= Apply GW2 stats =========
   ;(function applyGW2(){
     const alias = (n)=> n==='Sowad' ? 'Sowaad' : n; // map message name -> roster name
     const addGA = (name, key, val, teamId=null) => {
@@ -537,7 +563,6 @@
     addGA('Jabir','goals',3,'T2');
     addGA('Zarif Jr','goals',1,'T2');
     addGA('Murshed','goals',1,'T2');
-    // (Own goal doesn't credit any player)
     // SED assists: Saadman 4, Jabir 2, Sindeed 1
     addGA('Saadman','assists',4,'T2');
     addGA('Jabir','assists',2,'T2');
@@ -553,15 +578,15 @@
     addGA('Zee Chow','assists',1,'T4');
 
     // CPL (T3) goals: Sowad 1, Sadman Sajid 1, Arian 1
-    addGA('Sowad','goals',1,'T3'); // will map to "Sowaad"
+    addGA('Sowad','goals',1,'T3'); // maps to "Sowaad"
     addGA('Sadman Sajid','goals',1,'T3');
     addGA('Arian','goals',1,'T3');
     // CPL assists: Ron 1, Sowad 1
     addGA('Ron','assists',1,'T3');
-    addGA('Sowad','assists',1,'T3'); // map to "Sowaad"
+    addGA('Sowad','assists',1,'T3'); // maps to "Sowaad"
   })();
 
-  // ========= Apply GW3 stats (from your new breakdown) =========
+  // ========= Apply GW3 stats =========
   ;(function applyGW3(){
     const addGA = (name, key, val, teamId=null) => {
       let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
@@ -573,42 +598,48 @@
       if(p){ p[key]=(p[key]||0)+val; }
     };
 
-    // R3G1 — T1 5–4 T2
-    // Adda (T1) goals: Adeeb x4, Monjur x1
+    // R3G1 — Adda 5–4 Sagol
+    // Adda goals: Adeeb x4, Monjur x1
     addGA('Adeeb','goals',4,'T1');
     addGA('Monjur','goals',1,'T1');
-    // Adda assists: Aymaan Alamgir, Sadman Kabir, Monjur, Tarun
+    // Adda assists: Aymaan Alamgir, Sadman Kabir, Monjur, Tarun (1 each)
     addGA('Aymaan Alamgir','assists',1,'T1');
     addGA('Sadman Kabir','assists',1,'T1');
     addGA('Monjur','assists',1,'T1');
     addGA('Tarun','assists',1,'T1');
 
-    // SED (T2) goals: Ilham, Sindeed, Murshed, Saadman
+    // Sagol goals: Ilham, Sindeed, Murshed, Saadman
     addGA('Ilham','goals',1,'T2');
     addGA('Sindeed','goals',1,'T2');
     addGA('Murshed','goals',1,'T2');
     addGA('Saadman','goals',1,'T2');
-    // SED assists: Saadman x2, Sindeed, Jabir
+    // Sagol assists: Saadman x2, Sindeed, Jabir
     addGA('Saadman','assists',2,'T2');
     addGA('Sindeed','assists',1,'T2');
     addGA('Jabir','assists',1,'T2');
 
     // R3G2 — Gunners 3–1 GDB
-    // GDB (T5) goals: Egal; assists: Abeed
-    addGA('Egal','goals',1,'T5');
-    addGA('Abeed','assists',1,'T5');
-
-    // Gunners (T4) goals: Tazin x2, Ahnaf Jr x1
+    // Gunners goals: Tazin x2, Ahnaf Jr x1
     addGA('Tazin','goals',2,'T4');
     addGA('Ahnaf Jr','goals',1,'T4');
     // Gunners assists: Neo, Tazin
     addGA('Neo','assists',1,'T4');
     addGA('Tazin','assists',1,'T4');
+
+    // GDB goal: Egal x1; assist: Abeed
+    addGA('Egal','goals',1,'T5');
+    addGA('Abeed','assists',1,'T5');
   })();
 
   // ========= Standings =========
   function computeStandings(){
-    const base = Object.fromEntries(data.teams.map(t=>[t.id,{ teamId:t.id, team:t.name, short:t.short, color:t.color, played:0,wins:0,draws:0,losses:0,gf:0,ga:0,gd:0,points:0 }]));
+    const base = Object.fromEntries(
+      data.teams.map(t=>[
+        t.id,
+        { teamId:t.id, team:t.name, short:t.short, color:t.color,
+          played:0,wins:0,draws:0,losses:0,gf:0,ga:0,gd:0,points:0 }
+      ])
+    );
     for(const m of data.matches){
       if(m.status!=='final') continue;
       const home = base[m.homeTeamId]; const away = base[m.awayTeamId];
@@ -621,14 +652,20 @@
       else { home.draws++; away.draws++; home.points++; away.points++; }
     }
     for(const t of Object.values(base)) t.gd = t.gf - t.ga;
-    return Object.values(base).sort((a,b)=> b.points-a.points || b.gd-a.gd || b.gf-a.gf || a.team.localeCompare(b.team));
+    return Object.values(base).sort(
+      (a,b)=> b.points-a.points || b.gd-a.gd || b.gf-a.gf || a.team.localeCompare(b.team)
+    );
   }
 
   function renderTable(sortBy='points', dir='desc'){
     const tbody = byId('table').querySelector('tbody');
     let rows = computeStandings();
     if(sortBy && sortBy!=='rank'){
-      const f = dir==='asc'?1:-1; rows = [...rows].sort((a,b)=> (a[sortBy]===b[sortBy]?0:(a[sortBy]>b[sortBy]?1:-1))*f);
+      const f = dir==='asc'?1:-1;
+      rows = [...rows].sort((a,b)=>{
+        if(a[sortBy]===b[sortBy]) return 0;
+        return (a[sortBy]>b[sortBy]?1:-1)*f;
+      });
     }
     tbody.innerHTML='';
     rows.forEach((r,i)=>{
@@ -644,7 +681,12 @@
   }
 
   // ========= Leaders (roles hidden on Home) =========
-  function topPlayers(key, limit=5){ return [...data.players].sort((a,b)=> (b[key]??0)-(a[key]??0) || a.name.localeCompare(b.name)).slice(0,limit); }
+  function topPlayers(key, limit=5){
+    return [...data.players]
+      .sort((a,b)=> (b[key]??0)-(a[key]??0) || a.name.localeCompare(b.name))
+      .slice(0,limit);
+  }
+
   function renderLeaders(){
     const scorers = topPlayers('goals',5);
     const assisters = topPlayers('assists',5);
@@ -671,9 +713,11 @@
   // ========= HOME — LATEST MATCHWEEK RESULTS (with logos) =========
   function latestResultsDay(){
     if(!data.results.length) return null;
-    const dates = [...new Set(data.results.map(r=>r.date))].sort((a,b)=> new Date(b)-new Date(a));
+    const dates = [...new Set(data.results.map(r=>r.date))]
+      .sort((a,b)=> new Date(b)-new Date(a));
     return dates[0] || null;
   }
+
   function renderHomeResults(){
     const mount = byId('thisWeekResults');
     const day = latestResultsDay();
@@ -683,7 +727,9 @@
 
     const info = document.createElement('div');
     info.className='muted'; info.style.margin='0 0 8px 0';
-    info.textContent = new Date(day+"T12:00:00").toLocaleDateString(undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'});
+    info.textContent = new Date(day+"T12:00:00").toLocaleDateString(
+      undefined,{weekday:'short',year:'numeric',month:'short',day:'numeric'}
+    );
     mount.appendChild(info);
 
     dayResults.forEach(r=>{
@@ -712,7 +758,13 @@
     let currentMonth='';
     items.forEach(g=>{
       const m = new Date(g.date+"T12:00:00").toLocaleString(undefined,{month:'long',year:'numeric'});
-      if(m!==currentMonth){ currentMonth=m; const h=document.createElement('h3'); h.textContent=currentMonth; h.style.margin='6px 0 8px'; wrap.appendChild(h); }
+      if(m!==currentMonth){
+        currentMonth=m;
+        const h=document.createElement('h3');
+        h.textContent=currentMonth;
+        h.style.margin='6px 0 8px';
+        wrap.appendChild(h);
+      }
       const div=document.createElement('div'); div.className='card'; div.style.marginBottom='10px';
       const ht = teamById(g.home)?.name || g.home; const at = teamById(g.away)?.name || g.away;
       div.innerHTML = `
@@ -733,7 +785,8 @@
           <span class="muted">${players.length} players</span>
         </summary>
         <div class="bd">
-          <table style="width:100%;border-collapse:collapse"><thead><tr><th>Name</th><th>Role</th></tr></thead>
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr><th>Name</th><th>Role</th></tr></thead>
             <tbody>${players.map(p=>`<tr><td>${p.name}</td><td>${p.position||''}</td></tr>`).join('')}</tbody>
           </table>
         </div>`;
@@ -756,7 +809,10 @@
     const wrap = byId('resultsList'); wrap.innerHTML='';
     const items = [...data.results].sort((a,b)=> new Date(b.date)-new Date(a.date));
     byId('resultsCount').textContent = `${items.length} games`;
-    if(!items.length){ wrap.innerHTML = '<div class="muted">No results yet.</div>'; return; }
+    if(!items.length){
+      wrap.innerHTML = '<div class="muted">No results yet.</div>';
+      return;
+    }
     items.forEach(r=>{
       const ht = teamById(r.home)?.name || r.home; const at = teamById(r.away)?.name || r.away;
       const div = document.createElement('div'); div.className='card'; div.id = `results-${r.id}`;
@@ -790,25 +846,44 @@
   const sections = ['home','schedule','rosters','results','stats'];
   function setRoute(hash){
     const route = (hash||'#home').split('?')[0];
-    sections.forEach(id=>{ (document.getElementById(id)||{}).hidden = ('#'+id)!==route; });
-    document.querySelectorAll('.tab').forEach(btn=> btn.setAttribute('aria-current', btn.dataset.route===route?'page':'false'));
+    sections.forEach(id=>{
+      (document.getElementById(id)||{}).hidden = ('#'+id)!==route;
+    });
+    document.querySelectorAll('.tab').forEach(btn=>
+      btn.setAttribute('aria-current', btn.dataset.route===route?'page':'false')
+    );
     if(route==="#home"){ renderHomeResults(); renderTable(); renderLeaders(); }
     if(route==="#schedule"){ renderSchedule(); }
     if(route==="#rosters"){ renderRosters(); }
     if(route==="#results"){ renderResults(); }
-    if(route==="#stats"){ byId('statsSheetWrap').innerHTML = data.embeds.statsSheetUrl ? `<iframe src="${data.embeds.statsSheetUrl.replace('/edit','/preview')}" loading="lazy" allowfullscreen></iframe>` : `<div class='muted'>Add <code>data.embeds.statsSheetUrl</code> to show your full stats.</div>`; }
+    if(route==="#stats"){
+      byId('statsSheetWrap').innerHTML = data.embeds.statsSheetUrl
+        ? `<iframe src="${data.embeds.statsSheetUrl.replace('/edit','/preview')}" loading="lazy" allowfullscreen></iframe>`
+        : `<div class='muted'>Add <code>data.embeds.statsSheetUrl</code> to show your full stats.</div>`;
+    }
   }
   window.addEventListener('hashchange', ()=> setRoute(location.hash));
-  document.querySelectorAll('.tab').forEach(btn=> btn.addEventListener('click', ()=> { location.hash = btn.dataset.route; if(window.innerWidth<=720){ tabs.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); } }));
+  document.querySelectorAll('.tab').forEach(btn=>
+    btn.addEventListener('click', ()=>{
+      location.hash = btn.dataset.route;
+      if(window.innerWidth<=720){
+        tabs.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    })
+  );
 
   // Table sorting
   (function initSort(){
     document.addEventListener('click', (e)=>{
       const table = document.querySelector('#table'); if(!table) return;
       const btn = e.target.closest('#table thead button[data-sort]');
-      if(!btn) return; const key = btn.dataset.sort;
+      if(!btn) return;
+      const key = btn.dataset.sort;
       if(!initSort.state) initSort.state = { key:'points', dir:'desc' };
-      initSort.state = (initSort.state.key===key) ? { key, dir: initSort.state.dir==='desc'?'asc':'desc' } : { key, dir:'desc' };
+      initSort.state = (initSort.state.key===key)
+        ? { key, dir: initSort.state.dir==='desc'?'asc':'desc' }
+        : { key, dir:'desc' };
       renderTable(initSort.state.key, initSort.state.dir);
     });
   })();
@@ -823,7 +898,8 @@
 
   // Boot
   (function boot(){
-    document.getElementById('seasonRange').textContent = `${new Date(data.seasonStart).getFullYear()}/${String(new Date(data.seasonEnd).getFullYear()).slice(-2)}`;
+    document.getElementById('seasonRange').textContent =
+      `${new Date(data.seasonStart).getFullYear()}/${String(new Date(data.seasonEnd).getFullYear()).slice(-2)}`;
     if(!location.hash) location.hash = '#home';
     setRoute(location.hash);
   })();
