@@ -101,7 +101,7 @@
     tbody tr:hover{background:#edf2ff}
     th button{background:none;border:none;color:var(--text);font-weight:600;cursor:pointer}
 
-    /* Embeds */
+    /* Embeds (used only for Sheets now) */
     .iframeWrap{position:relative;width:100%;padding-top:60%;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
     .iframeWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
@@ -342,8 +342,8 @@
       { id:'R3G1', round:3, date:'2025-11-12', homeTeamId:'T1', awayTeamId:'T2', homeScore:5, awayScore:4, status:'final' },
       { id:'R3G2', round:3, date:'2025-11-12', homeTeamId:'T4', awayTeamId:'T5', homeScore:3, awayScore:1, status:'final' },
 
-      // Round 4 — Nov 19, 2025
-      { id:'R4G1', round:4, date:'2025-11-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:7, awayScore:3, status:'final' },
+      // Round 4 — Nov 19, 2025 (updated score 7–2)
+      { id:'R4G1', round:4, date:'2025-11-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:7, awayScore:2, status:'final' },
       { id:'R4G2', round:4, date:'2025-11-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:2, awayScore:7, status:'final' },
 
       // Round 5 — Nov 26, 2025
@@ -400,7 +400,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW5; GW4–5 scorers TBD)
+    // Results (GW1–GW5; GW4 G1 updated)
     results: [
       // GW1
       {
@@ -468,16 +468,16 @@
         video:""
       },
 
-      // GW4 — Nov 19, 2025
+      // GW4 — Nov 19, 2025 (updated scorers + video)
       {
         id:'RES-R4G1',
         date:'2025-11-19',
-        home:'T4', away:'T1', hs:7, as:3,
+        home:'T4', away:'T1', hs:7, as:2,
         scorers:{
-          T4:[],
-          T1:[]
+          T4:["Tarek (5), Titu (1), Shafiq (1) — AST: Titu (1), Ruhaan (1), Zee Chow (1)"],
+          T1:["Adeeb (2) — AST: Kabir (1)"]
         },
-        video:""
+        video:"https://youtu.be/dMJGDmnCj9c"
       },
       {
         id:'RES-R4G2',
@@ -649,6 +649,31 @@
     addGA('Abeed','assists',1,'T5');
   })();
 
+  // ========= Apply GW4 stats (Game 1: Gunners 7–2 Adda) =========
+  ;(function applyGW4_G1(){
+    const addGA = (name, key, val, teamId=null) => {
+      let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
+      if(!p){
+        const lname = name.toLowerCase();
+        p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
+          || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
+      }
+      if(p){ p[key] = (p[key] || 0) + val; }
+    };
+
+    // Gunners
+    addGA('Tarek','goals',5,'T4');
+    addGA('Titu','goals',1,'T4');
+    addGA('Titu','assists',1,'T4');
+    addGA('Shafiq','goals',1,'T4');
+    addGA('Ruhaan','assists',1,'T4');
+    addGA('Zee Chow','assists',1,'T4');
+
+    // Adda
+    addGA('Adeeb','goals',2,'T1');
+    addGA('Kabir','assists',1,'T1');
+  })();
+
   // ========= Standings =========
   function computeStandings(){
     const base = Object.fromEntries(
@@ -813,16 +838,6 @@
     byId('teamCount').textContent = `${data.teams.length} Teams`;
   }
 
-  function youTubeIdFromUrl(url){
-    if(!url) return null;
-    try{
-      const u = new URL(url);
-      if(u.hostname.includes('youtu.be')) return u.pathname.slice(1);
-      if(u.hostname.includes('youtube.com')) return u.searchParams.get('v');
-      return null;
-    }catch{ return null; }
-  }
-
   function renderResults(){
     const wrap = byId('resultsList'); wrap.innerHTML='';
     const items = [...data.results].sort((a,b)=> new Date(b.date)-new Date(a.date));
@@ -834,7 +849,6 @@
     items.forEach(r=>{
       const ht = teamById(r.home)?.name || r.home; const at = teamById(r.away)?.name || r.away;
       const div = document.createElement('div'); div.className='card'; div.id = `results-${r.id}`;
-      const ytId = youTubeIdFromUrl(r.video);
       div.innerHTML = `
         <div class="hd">
           <h2>${fmtDate(r.date)} — ${ht} ${r.hs}&nbsp;–&nbsp;${r.as} ${at}</h2>
@@ -844,16 +858,10 @@
           <div style="display:grid;gap:8px">
             <div><strong>${ht}</strong> scorers: <span class="muted">${(r.scorers?.[r.home]||[]).join(', ') || '—'}</span></div>
             <div><strong>${at}</strong> scorers: <span class="muted">${(r.scorers?.[r.away]||[]).join(', ') || '—'}</span></div>
-            ${r.video && (ytId ? `
+            ${r.video ? `
               <div style="margin-top:8px">
                 <a class="pill" href="${r.video}" target="_blank" rel="noopener noreferrer">▶ Watch on YouTube</a>
-              </div>
-              <div class="iframeWrap" style="margin-top:8px">
-                <iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen loading="lazy"></iframe>
-              </div>` : `
-              <div style="margin-top:8px">
-                <a class="pill" href="${r.video}" target="_blank" rel="noopener noreferrer">▶ Watch on YouTube</a>
-              </div>`)}
+              </div>` : ``}
           </div>
         </div>`;
       wrap.appendChild(div);
