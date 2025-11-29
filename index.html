@@ -400,7 +400,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW5; GW4 fully filled)
+    // Results (GW1–GW5; GW4 + GW5 G1 filled)
     results: [
       // GW1
       {
@@ -496,8 +496,8 @@
         date:'2025-11-26',
         home:'T4', away:'T2', hs:2, as:7,
         scorers:{
-          T4:[],
-          T2:[]
+          T4:["Ahnaf Jr (1), Tahsin (1) — AST: Tarek (1)"],
+          T2:["Zarif Jr (1), Sameen (1), Murshed (2), Saadman (2), Jabir (1) — AST: Murshed (2), Saadman (1), Sameen (1), Zarif Jr (1), Sindeed (1)"]
         },
         video:""
       },
@@ -701,6 +701,37 @@
     addGA('Arian','goals',1,'T3');
     addGA('Sowaad','goals',1,'T3');
     // no assists recorded for CPL in this game
+  })();
+
+  // ========= Apply GW5 stats (Game 1: GUN 2–7 SED) =========
+  ;(function applyGW5_G1(){
+    const addGA = (name, key, val, teamId=null) => {
+      let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
+      if(!p){
+        const lname = name.toLowerCase();
+        p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
+          || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
+      }
+      if(p){ p[key] = (p[key] || 0) + val; }
+    };
+
+    // Sagol Er Dol
+    addGA('Zarif Jr','goals',1,'T2');
+    addGA('Sameen','goals',1,'T2');
+    addGA('Murshed','goals',2,'T2');
+    addGA('Saadman','goals',2,'T2');
+    addGA('Jabir','goals',1,'T2');
+
+    addGA('Murshed','assists',2,'T2');
+    addGA('Saadman','assists',1,'T2');
+    addGA('Sameen','assists',1,'T2');
+    addGA('Zarif Jr','assists',1,'T2');
+    addGA('Sindeed','assists',1,'T2');
+
+    // Gunners
+    addGA('Ahnaf Jr','goals',1,'T4');
+    addGA('Tahsin','goals',1,'T4');
+    addGA('Tarek','assists',1,'T4');
   })();
 
   // ========= Standings =========
