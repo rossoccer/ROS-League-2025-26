@@ -101,7 +101,7 @@
     tbody tr:hover{background:#edf2ff}
     th button{background:none;border:none;color:var(--text);font-weight:600;cursor:pointer}
 
-    /* Embeds (used only for Sheets now) */
+    /* Embeds (Sheets only) */
     .iframeWrap{position:relative;width:100%;padding-top:60%;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
     .iframeWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
@@ -342,7 +342,7 @@
       { id:'R3G1', round:3, date:'2025-11-12', homeTeamId:'T1', awayTeamId:'T2', homeScore:5, awayScore:4, status:'final' },
       { id:'R3G2', round:3, date:'2025-11-12', homeTeamId:'T4', awayTeamId:'T5', homeScore:3, awayScore:1, status:'final' },
 
-      // Round 4 — Nov 19, 2025 (updated score 7–2)
+      // Round 4 — Nov 19, 2025 (updated scores)
       { id:'R4G1', round:4, date:'2025-11-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:7, awayScore:2, status:'final' },
       { id:'R4G2', round:4, date:'2025-11-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:2, awayScore:7, status:'final' },
 
@@ -400,7 +400,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW5; GW4 G1 updated)
+    // Results (GW1–GW5; GW4 fully filled)
     results: [
       // GW1
       {
@@ -419,7 +419,7 @@
         home:'T1', away:'T5', hs:3, as:2,
         scorers:{
           T1:["Adeeb (2), Monjur (1) — AST: Sadman Kabir (1), Aymaan Alamgir (1)"],
-          T5:["Arif (1), Abdu (1) — AST: Egal (1), Abdu (1)"]
+          T5:["Arif (2), Abdu (1) — AST: Egal (1), Abdu (1)"]
         },
         video:"ADD_LINK_HERE"
       },
@@ -468,7 +468,7 @@
         video:""
       },
 
-      // GW4 — Nov 19, 2025 (updated scorers + video)
+      // GW4 — Nov 19, 2025
       {
         id:'RES-R4G1',
         date:'2025-11-19',
@@ -484,8 +484,8 @@
         date:'2025-11-19',
         home:'T3', away:'T5', hs:2, as:7,
         scorers:{
-          T3:[],
-          T5:[]
+          T3:["Arian (1), Sowad (1) — AST: —"],
+          T5:["Abeed (2), Egal (3), Tanzil (2) — AST: Egal (1), Tanzil (1), Fardin (2), Prince (1), Abdu (1)"]
         },
         video:""
       },
@@ -649,7 +649,7 @@
     addGA('Abeed','assists',1,'T5');
   })();
 
-  // ========= Apply GW4 stats (Game 1: Gunners 7–2 Adda) =========
+  // ========= Apply GW4 stats (Game 1: GUN 7–2 ADD) =========
   ;(function applyGW4_G1(){
     const addGA = (name, key, val, teamId=null) => {
       let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
@@ -672,6 +672,35 @@
     // Adda
     addGA('Adeeb','goals',2,'T1');
     addGA('Kabir','assists',1,'T1');
+  })();
+
+  // ========= Apply GW4 stats (Game 2: CPL 2–7 GDB) =========
+  ;(function applyGW4_G2(){
+    const addGA = (name, key, val, teamId=null) => {
+      let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
+      if(!p){
+        const lname = name.toLowerCase();
+        p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
+          || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
+      }
+      if(p){ p[key] = (p[key] || 0) + val; }
+    };
+
+    // Goal Dile Bhat Free
+    addGA('Abeed','goals',2,'T5');
+    addGA('Egal','goals',3,'T5');
+    addGA('Tanzil','goals',2,'T5');
+
+    addGA('Egal','assists',1,'T5');
+    addGA('Tanzil','assists',1,'T5');
+    addGA('Fardin','assists',2,'T5');
+    addGA('Prince','assists',1,'T5');
+    addGA('Abdu','assists',1,'T5');
+
+    // Crack Platoon
+    addGA('Arian','goals',1,'T3');
+    addGA('Sowaad','goals',1,'T3');
+    // no assists recorded for CPL in this game
   })();
 
   // ========= Standings =========
@@ -932,4 +961,3 @@
 </script>
 </body>
 </html>
-
