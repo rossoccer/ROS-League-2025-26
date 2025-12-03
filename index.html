@@ -186,7 +186,7 @@
           <div class="logoStrip">
             <img src="Adda.png"    alt="Adda Athletic"        loading="lazy">
             <img src="Sagol.png"   alt="Sagol Er Dol"         loading="lazy">
-            <img src="Crack.png"   alt="Crack Platoon"        loading="lazy">
+            <img src="Crack.png"   alt="Crack Platoon"       loading="lazy">
             <img src="Gunners.png" alt="Gunners"              loading="lazy">
             <img src="Bhat.png"    alt="Goal Dile Bhat Free"  loading="lazy">
           </div>
@@ -400,7 +400,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW5; GW4 + GW5 G1 filled)
+    // Results (GW1–GW5; GW4 + GW5 filled)
     results: [
       // GW1
       {
@@ -506,8 +506,8 @@
         date:'2025-11-26',
         home:'T1', away:'T3', hs:5, as:9,
         scorers:{
-          T1:[],
-          T3:[]
+          T1:["Adeeb (4), Aymaan Alamgir (1) — AST: Sadman Kabir (1), Aymaan Alamgir (1)"],
+          T3:["Arian (2), Tahmid (2), Sowad (4), Sadman Sajid (1) — AST: Sowad (2), Zareef (1), Sadman Sajid (1), Arian (2)"]
         },
         video:""
       }
@@ -520,8 +520,18 @@
   const playersByTeam = (id) => data.players.filter(p=>p.teamId===id);
   const fmtDate = (d) => new Date(d+"T12:00:00").toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
 
-  function hexToRgb(hex){ const h = (hex||'').replace('#',''); const bigint = parseInt(h.length===3 ? h.split('').map(x=>x+x).join('') : h, 16); return {r:(bigint>>16)&255, g:(bigint>>8)&255, b:(bigint)&255}; }
-  function isLight(hex){ try{ const {r,g,b}=hexToRgb(hex); const l=(0.2126*r+0.7152*g+0.0722*b)/255; return l>0.85; }catch{ return false; } }
+  function hexToRgb(hex){
+    const h = (hex||'').replace('#','');
+    const bigint = parseInt(h.length===3 ? h.split('').map(x=>x+x).join('') : h, 16);
+    return {r:(bigint>>16)&255, g:(bigint>>8)&255, b:(bigint)&255};
+  }
+  function isLight(hex){
+    try{
+      const {r,g,b}=hexToRgb(hex);
+      const l=(0.2126*r+0.7152*g+0.0722*b)/255;
+      return l>0.85;
+    }catch{ return false; }
+  }
 
   // ========= Apply GW1 stats =========
   ;(function applyGW1(){
@@ -676,10 +686,12 @@
 
   // ========= Apply GW4 stats (Game 2: CPL 2–7 GDB) =========
   ;(function applyGW4_G2(){
+    const alias = (n)=> n==='Sowad' ? 'Sowaad' : n;
     const addGA = (name, key, val, teamId=null) => {
-      let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
+      const target = alias(name);
+      let p = data.players.find(x=>x.name===target && (!teamId || x.teamId===teamId));
       if(!p){
-        const lname = name.toLowerCase();
+        const lname = target.toLowerCase();
         p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
           || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
       }
@@ -699,7 +711,7 @@
 
     // Crack Platoon
     addGA('Arian','goals',1,'T3');
-    addGA('Sowaad','goals',1,'T3');
+    addGA('Sowad','goals',1,'T3');
     // no assists recorded for CPL in this game
   })();
 
@@ -732,6 +744,38 @@
     addGA('Ahnaf Jr','goals',1,'T4');
     addGA('Tahsin','goals',1,'T4');
     addGA('Tarek','assists',1,'T4');
+  })();
+
+  // ========= Apply GW5 stats (Game 2: ADD 5–9 CPL) =========
+  ;(function applyGW5_G2(){
+    const alias = (n)=> n==='Sowad' ? 'Sowaad' : n;
+    const addGA = (name, key, val, teamId=null) => {
+      const target = alias(name);
+      let p = data.players.find(x=>x.name===target && (!teamId || x.teamId===teamId));
+      if(!p){
+        const lname = target.toLowerCase();
+        p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
+          || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
+      }
+      if(p){ p[key] = (p[key] || 0) + val; }
+    };
+
+    // Adda Athletic
+    addGA('Adeeb','goals',4,'T1');
+    addGA('Aymaan Alamgir','goals',1,'T1');
+    addGA('Sadman Kabir','assists',1,'T1');
+    addGA('Aymaan Alamgir','assists',1,'T1');
+
+    // Crack Platoon
+    addGA('Arian','goals',2,'T3');
+    addGA('Tahmid','goals',2,'T3');
+    addGA('Sowad','goals',4,'T3');
+    addGA('Sadman Sajid','goals',1,'T3');
+
+    addGA('Sowad','assists',2,'T3');
+    addGA('Zareef','assists',1,'T3');
+    addGA('Sadman Sajid','assists',1,'T3');
+    addGA('Arian','assists',2,'T3');
   })();
 
   // ========= Standings =========
