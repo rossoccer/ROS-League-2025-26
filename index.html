@@ -186,7 +186,7 @@
           <div class="logoStrip">
             <img src="Adda.png"    alt="Adda Athletic"        loading="lazy">
             <img src="Sagol.png"   alt="Sagol Er Dol"         loading="lazy">
-            <img src="Crack.png"   alt="Crack Platoon"       loading="lazy">
+            <img src="Crack.png"   alt="Crack Platoon"        loading="lazy">
             <img src="Gunners.png" alt="Gunners"              loading="lazy">
             <img src="Bhat.png"    alt="Goal Dile Bhat Free"  loading="lazy">
           </div>
@@ -328,7 +328,7 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Matches (R1–R5 final)
+    // Matches (R1–R6 final)
     matches: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
@@ -342,16 +342,20 @@
       { id:'R3G1', round:3, date:'2025-11-12', homeTeamId:'T1', awayTeamId:'T2', homeScore:5, awayScore:4, status:'final' },
       { id:'R3G2', round:3, date:'2025-11-12', homeTeamId:'T4', awayTeamId:'T5', homeScore:3, awayScore:1, status:'final' },
 
-      // Round 4 — Nov 19, 2025 (updated scores)
+      // Round 4 — Nov 19, 2025
       { id:'R4G1', round:4, date:'2025-11-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:7, awayScore:2, status:'final' },
       { id:'R4G2', round:4, date:'2025-11-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:2, awayScore:7, status:'final' },
 
       // Round 5 — Nov 26, 2025
       { id:'R5G1', round:5, date:'2025-11-26', homeTeamId:'T4', awayTeamId:'T2', homeScore:2, awayScore:7, status:'final' },
-      { id:'R5G2', round:5, date:'2025-11-26', homeTeamId:'T1', awayTeamId:'T3', homeScore:5, awayScore:9, status:'final' }
+      { id:'R5G2', round:5, date:'2025-11-26', homeTeamId:'T1', awayTeamId:'T3', homeScore:5, awayScore:9, status:'final' },
+
+      // Round 6 — Dec 3, 2025
+      { id:'R6G1', round:6, date:'2025-12-03', homeTeamId:'T3', awayTeamId:'T2', homeScore:4, awayScore:5, status:'final' },
+      { id:'R6G2', round:6, date:'2025-12-03', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:8, status:'final' }
     ],
 
-    // Schedule (R1–R5 set to final)
+    // Schedule (R1–R10; R1–R6 final)
     schedule: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'final' },
@@ -374,8 +378,8 @@
       { id:'R5G2', round:5, date:'2025-11-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'final' },
 
       // Round 6 — Dec 3, 2025
-      { id:'R6G1', round:6, date:'2025-12-03', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'scheduled' },
-      { id:'R6G2', round:6, date:'2025-12-03', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'scheduled' },
+      { id:'R6G1', round:6, date:'2025-12-03', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'final' },
+      { id:'R6G2', round:6, date:'2025-12-03', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'final' },
 
       // Round 7 — Dec 10, 2025
       { id:'R7G1', round:7, date:'2025-12-10', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'scheduled' },
@@ -400,7 +404,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW5; GW4 + GW5 filled)
+    // Results (GW1–GW6)
     results: [
       // GW1
       {
@@ -508,6 +512,28 @@
         scorers:{
           T1:["Adeeb (4), Aymaan Alamgir (1) — AST: Sadman Kabir (1), Aymaan Alamgir (1)"],
           T3:["Arian (2), Tahmid (2), Sowad (4), Sadman Sajid (1) — AST: Sowad (2), Zareef (1), Sadman Sajid (1), Arian (2)"]
+        },
+        video:""
+      },
+
+      // GW6 — Dec 3, 2025
+      {
+        id:'RES-R6G1',
+        date:'2025-12-03',
+        home:'T3', away:'T2', hs:4, as:5,
+        scorers:{
+          T3:[],
+          T2:[]
+        },
+        video:""
+      },
+      {
+        id:'RES-R6G2',
+        date:'2025-12-03',
+        home:'T1', away:'T5', hs:3, as:8,
+        scorers:{
+          T1:[],
+          T5:[]
         },
         video:""
       }
