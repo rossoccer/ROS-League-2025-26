@@ -522,8 +522,8 @@
         date:'2025-12-03',
         home:'T3', away:'T2', hs:4, as:5,
         scorers:{
-          T3:[],
-          T2:[]
+          T3:["Arian (1), Sowad (3) — AST: Sabir (1), Arian (1)"],
+          T2:["Saadman (3), Jabir (1), Murshed (1) — AST: Zarif Jr (1), Murshed (1), Jabir (1)"]
         },
         video:""
       },
@@ -802,6 +802,36 @@
     addGA('Zareef','assists',1,'T3');
     addGA('Sadman Sajid','assists',1,'T3');
     addGA('Arian','assists',2,'T3');
+  })();
+
+  // ========= Apply GW6 stats (Game 1: CPL 4–5 SED) =========
+  ;(function applyGW6_G1(){
+    const alias = (n)=> n==='Sowad' ? 'Sowaad' : n;
+    const addGA = (name, key, val, teamId=null) => {
+      const target = alias(name);
+      let p = data.players.find(x=>x.name===target && (!teamId || x.teamId===teamId));
+      if(!p){
+        const lname = target.toLowerCase();
+        p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
+          || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
+      }
+      if(p){ p[key] = (p[key] || 0) + val; }
+    };
+
+    // Crack Platoon
+    addGA('Arian','goals',1,'T3');
+    addGA('Sowad','goals',3,'T3');
+    addGA('Sabir','assists',1,'T3');
+    addGA('Arian','assists',1,'T3');
+
+    // Sagol Er Dol
+    addGA('Saadman','goals',3,'T2');
+    addGA('Jabir','goals',1,'T2');
+    addGA('Murshed','goals',1,'T2');
+
+    addGA('Zarif Jr','assists',1,'T2');
+    addGA('Murshed','assists',1,'T2');
+    addGA('Jabir','assists',1,'T2');
   })();
 
   // ========= Standings =========
