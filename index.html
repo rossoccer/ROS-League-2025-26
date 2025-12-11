@@ -328,7 +328,7 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Matches (R1–R6 final)
+    // Matches (R1–R7 final)
     matches: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
@@ -352,10 +352,14 @@
 
       // Round 6 — Dec 3, 2025
       { id:'R6G1', round:6, date:'2025-12-03', homeTeamId:'T3', awayTeamId:'T2', homeScore:4, awayScore:5, status:'final' },
-      { id:'R6G2', round:6, date:'2025-12-03', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:8, status:'final' }
+      { id:'R6G2', round:6, date:'2025-12-03', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:8, status:'final' },
+
+      // Round 7 — Dec 10, 2025
+      { id:'R7G1', round:7, date:'2025-12-10', homeTeamId:'T5', awayTeamId:'T2', homeScore:0, awayScore:8, status:'final' },
+      { id:'R7G2', round:7, date:'2025-12-10', homeTeamId:'T4', awayTeamId:'T3', homeScore:2, awayScore:2, status:'final' }
     ],
 
-    // Schedule (R1–R10; R1–R6 final)
+    // Schedule (R1–R10; R1–R7 final)
     schedule: [
       // Round 1 — Oct 29, 2025
       { id:'R1G1', round:1, date:'2025-10-29', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T3', away:'T2', status:'final' },
@@ -382,8 +386,8 @@
       { id:'R6G2', round:6, date:'2025-12-03', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T5', status:'final' },
 
       // Round 7 — Dec 10, 2025
-      { id:'R7G1', round:7, date:'2025-12-10', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'scheduled' },
-      { id:'R7G2', round:7, date:'2025-12-10', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'scheduled' },
+      { id:'R7G1', round:7, date:'2025-12-10', time:'9:00 PM – 10:00 PM',  venue:'Bell Sensplex', home:'T5', away:'T2', status:'final' },
+      { id:'R7G2', round:7, date:'2025-12-10', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T3', status:'final' },
 
       // Round 8 — Jan 12, 2026
       { id:'R8G1', round:8, date:'2026-01-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T2', status:'scheduled' },
@@ -404,7 +408,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW6)
+    // Results (GW1–GW7)
     results: [
       // GW1
       {
@@ -534,6 +538,28 @@
         scorers:{
           T1:["Monjur (1), Adeeb (2) — AST: Aymaan Alamgir (1), Sadman Kabir (2)"],
           T5:["Egal (3), Fardin (2), Tanzil (3) — AST: Fardin (3), Abeed (2), Egal (1)"]
+        },
+        video:""
+      },
+
+      // GW7 — Dec 10, 2025
+      {
+        id:'RES-R7G1',
+        date:'2025-12-10',
+        home:'T5', away:'T2', hs:0, as:8,
+        scorers:{
+          T5:[],
+          T2:[]
+        },
+        video:""
+      },
+      {
+        id:'RES-R7G2',
+        date:'2025-12-10',
+        home:'T4', away:'T3', hs:2, as:2,
+        scorers:{
+          T4:[],
+          T3:[]
         },
         video:""
       }
