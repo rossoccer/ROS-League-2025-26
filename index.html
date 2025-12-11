@@ -532,8 +532,8 @@
         date:'2025-12-03',
         home:'T1', away:'T5', hs:3, as:8,
         scorers:{
-          T1:[],
-          T5:[]
+          T1:["Monjur (1), Adeeb (2) — AST: Aymaan Alamgir (1), Sadman Kabir (2)"],
+          T5:["Egal (3), Fardin (2), Tanzil (3) — AST: Fardin (3), Abeed (2), Egal (1)"]
         },
         video:""
       }
@@ -832,6 +832,34 @@
     addGA('Zarif Jr','assists',1,'T2');
     addGA('Murshed','assists',1,'T2');
     addGA('Jabir','assists',1,'T2');
+  })();
+
+  // ========= Apply GW6 stats (Game 2: ADD 3–8 GDB) =========
+  ;(function applyGW6_G2(){
+    const addGA = (name, key, val, teamId=null) => {
+      let p = data.players.find(x=>x.name===name && (!teamId || x.teamId===teamId));
+      if(!p){
+        const lname = name.toLowerCase();
+        p = data.players.find(x=>x.name.toLowerCase()===lname && (!teamId || x.teamId===teamId))
+          || data.players.find(x=>x.name.toLowerCase().includes(lname) && (!teamId || x.teamId===teamId));
+      }
+      if(p){ p[key] = (p[key] || 0) + val; }
+    };
+
+    // Adda Athletic
+    addGA('Monjur','goals',1,'T1');
+    addGA('Adeeb','goals',2,'T1');
+    addGA('Aymaan Alamgir','assists',1,'T1');
+    addGA('Sadman Kabir','assists',2,'T1');
+
+    // Goal Dile Bhat Free
+    addGA('Egal','goals',3,'T5');
+    addGA('Fardin','goals',2,'T5');
+    addGA('Tanzil','goals',3,'T5');
+
+    addGA('Fardin','assists',3,'T5');
+    addGA('Abeed','assists',2,'T5');
+    addGA('Egal','assists',1,'T5');
   })();
 
   // ========= Standings =========
