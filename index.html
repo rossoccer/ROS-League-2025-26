@@ -770,9 +770,53 @@
       else { home.draws++; away.draws++; home.points++; away.points++; }
     }
     for(const t of Object.values(base)) t.gd = t.gf - t.ga;
-    return Object.values(base).sort(
-      (a,b)=> b.points-a.points || b.gd-a.gd || b.gf-a.gf || a.team.localeCompare(b.team)
-    );
+
+    // SORTING LOGIC with H2H
+    return Object.values(base).sort((a,b)=>{
+      // 1. Points
+      if(b.points !== a.points) return b.points - a.points;
+
+      // 2. Head-to-Head (if points tied)
+      const h2hMatches = data.matches.filter(m => 
+        m.status === 'final' &&
+        ((m.homeTeamId === a.teamId && m.awayTeamId === b.teamId) ||
+         (m.homeTeamId === b.teamId && m.awayTeamId === a.teamId))
+      );
+      
+      if(h2hMatches.length > 0){
+        let aPts = 0, bPts = 0;
+        let aGD = 0, bGD = 0;
+
+        h2hMatches.forEach(m => {
+          const homeIsA = m.homeTeamId === a.teamId;
+          const scoreA = homeIsA ? m.homeScore : m.awayScore;
+          const scoreB = homeIsA ? m.awayScore : m.homeScore;
+
+          // H2H Points
+          if (scoreA > scoreB) aPts += 3;
+          else if (scoreB > scoreA) bPts += 3;
+          else { aPts += 1; bPts += 1; }
+
+          // H2H GD
+          aGD += (scoreA - scoreB);
+          bGD += (scoreB - scoreA);
+        });
+
+        // Check H2H Points
+        if (aPts !== bPts) return bPts - aPts;
+
+        // Check H2H Goal Difference
+        if (aGD !== bGD) return bGD - aGD;
+      }
+
+      // 3. Overall Goal Difference
+      if(b.gd !== a.gd) return b.gd - a.gd;
+      
+      // 4. Overall Goals For
+      if(b.gf !== a.gf) return b.gf - a.gf;
+      
+      return a.team.localeCompare(b.team);
+    });
   }
 
   function renderTable(sortBy='points', dir='desc'){
@@ -781,6 +825,8 @@
     if(sortBy && sortBy!=='rank'){
       const f = dir==='asc'?1:-1;
       rows = [...rows].sort((a,b)=>{
+        // Use default logic for points to keep H2H valid? 
+        // Actually if user clicks sort, we do simple sort. H2H only applies to default rank.
         if(a[sortBy]===b[sortBy]) return 0;
         return (a[sortBy]>b[sortBy]?1:-1)*f;
       });
