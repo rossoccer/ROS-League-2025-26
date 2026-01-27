@@ -371,7 +371,7 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Matches (R1–R9)
+    // Matches (R1–R10)
     matches: [
       { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
       { id:'R1G2', round:1, date:'2025-10-29', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:2, status:'final' },
@@ -397,9 +397,12 @@
       { id:'R8G1', round:8, date:'2026-01-12', homeTeamId:'T1', awayTeamId:'T2', homeScore:5, awayScore:5, status:'final' },
       { id:'R8G2', round:8, date:'2026-01-12', homeTeamId:'T4', awayTeamId:'T5', homeScore:4, awayScore:5, status:'final' },
 
-      // R9
       { id:'R9G1', round:9, date:'2026-01-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:4, awayScore:3, status:'final' },
-      { id:'R9G2', round:9, date:'2026-01-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:4, awayScore:4, status:'final' }
+      { id:'R9G2', round:9, date:'2026-01-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:4, awayScore:4, status:'final' },
+
+      // R10
+      { id:'R10G1', round:10, date:'2026-01-26', homeTeamId:'T4', awayTeamId:'T2', homeScore:6, awayScore:9, status:'final' },
+      { id:'R10G2', round:10, date:'2026-01-26', homeTeamId:'T1', awayTeamId:'T3', homeScore:8, awayScore:4, status:'final' }
     ],
 
     // Schedule
@@ -431,8 +434,8 @@
       { id:'R9G1', round:9, date:'2026-01-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T1', status:'final' },
       { id:'R9G2', round:9, date:'2026-01-19', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'final' },
 
-      { id:'R10G1', round:10, date:'2026-01-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T2', status:'scheduled' },
-      { id:'R10G2', round:10, date:'2026-01-26', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'scheduled' },
+      { id:'R10G1', round:10, date:'2026-01-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T2', status:'final' },
+      { id:'R10G2', round:10, date:'2026-01-26', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'final' },
 
       { id:'PO-SF1', stage:'Semi Final 1', date:'2026-02-02', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'1st Place', away:'2nd Place', status:'scheduled' },
       { id:'PO-QF',  stage:'Quarter Final', date:'2026-02-02', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'3rd Place', away:'4th Place', status:'scheduled' },
@@ -440,7 +443,7 @@
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW9)
+    // Results (GW1–GW10)
     results: [
       { id:'RES-R1G1', date:'2025-10-29', home:'T3', away:'T2', hs:3, as:4,
         scorers:{ T3:["Sowaad (3) — AST: Tahmid (2)"], T2:["Saadman (3), Zarif Jr (1) — AST: Sindeed (2), Ilham (1)"] },
@@ -529,6 +532,16 @@
       },
       { id:'RES-R9G2', date:'2026-01-19', home:'T3', away:'T5', hs:4, as:4,
         scorers:{ T3:["(Details to follow)"], T5:["(Details to follow)"] },
+        video:""
+      },
+
+      // GW10 - JAN 26
+      { id:'RES-R10G1', date:'2026-01-26', home:'T4', away:'T2', hs:6, as:9,
+        scorers:{ T4:["(Details to follow)"], T2:["(Details to follow)"] },
+        video:""
+      },
+      { id:'RES-R10G2', date:'2026-01-26', home:'T1', away:'T3', hs:8, as:4,
+        scorers:{ T1:["(Details to follow)"], T3:["(Details to follow)"] },
         video:""
       }
     ]
