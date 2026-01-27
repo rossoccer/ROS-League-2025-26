@@ -9,6 +9,7 @@
       --bg:#eef2f6; --card:#ffffff; --muted:#5b606b; --text:#0f172a;
       --brand:#2563eb; --brand-2:#7c3aed; --border:#e2e8f0;
       --radius-xl:20px; --shadow:0 8px 20px rgba(15,23,42,.06);
+      --gold: #fbbf24; --gold-dark: #b45309; --royal-bg: #1e1b4b;
     }
     *{box-sizing:border-box}
     body{margin:0;font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);
@@ -60,15 +61,84 @@
     .muted{color:var(--muted)}
     .pill{padding:4px 8px;border-radius:999px;background:#f2f7ff;border:1px solid #dbe3ff;color:#1f2a44;font-size:12px}
 
-    /* HOME grid */
+    /* PLAYOFF HERO SECTION (Gold/Royal) */
+    .heroPlayoff {
+      grid-column: 1 / -1; /* Spans full width */
+      background: linear-gradient(135deg, var(--royal-bg) 0%, #312e81 100%);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 10px 30px rgba(251, 191, 36, 0.25);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .heroPlayoff::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at top right, rgba(251,191,36,0.3), transparent 50%);
+      pointer-events: none;
+    }
+    .heroContent {
+      position: relative; z-index: 2; padding: 24px;
+      text-align: center;
+    }
+    .heroTitle {
+      font-size: 28px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--gold);
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(251,191,36,0.4);
+    }
+    .heroSub {
+      font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
+      color: #cbd5e1; margin-bottom: 24px; font-weight: 700;
+    }
+    .playoffGrid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    @media (max-width: 700px) { .playoffGrid { grid-template-columns: 1fr; } }
+    
+    .matchupCard {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: transform 0.2s ease;
+    }
+    .matchupCard:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+    .matchType {
+      background: var(--gold); color: var(--royal-bg);
+      font-size: 11px; font-weight: 900; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 99px; margin-bottom: 12px;
+    }
+    .matchVersus {
+      display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%;
+      margin-bottom: 12px;
+    }
+    .tm { font-weight: 800; font-size: 18px; text-align: center; }
+    .vs { font-size: 14px; font-weight: 900; color: var(--gold); opacity: 0.8; }
+    .matchInfo {
+      font-size: 13px; color: #cbd5e1; font-weight: 600;
+    }
+    .shine {
+      background: linear-gradient(to right, #fbbf24 0%, #fff 50%, #fbbf24 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-weight: 900;
+    }
+
+    /* HOME grid layout */
     .homeGrid{display:grid;gap:16px}
     @media (min-width:980px){
       .homeGrid{grid-template-columns:3fr 2fr; grid-template-rows:auto 1fr; align-items:stretch}
       .homeGrid > .card{height:100%}
-      #homeRecent{grid-column:1;grid-row:1}
-      #homeTable{ grid-column:1;grid-row:2}
-      #homeScorers{grid-column:2;grid-row:1}
-      #homeAssisters{grid-column:2;grid-row:2}
+      /* Hero spans full width */
+      .heroPlayoff { grid-column: 1 / -1; grid-row: 1; margin-bottom: 0; }
+      
+      /* Shift everything else down */
+      #homeRecent{grid-column:1;grid-row:2}
+      #homeScorers{grid-column:2;grid-row:2}
+      #homeTable{ grid-column:1;grid-row:3}
+      #homeAssisters{grid-column:2;grid-row:3}
     }
     @media (max-width:979px){
       .homeGrid{grid-template-columns:1fr}
@@ -176,6 +246,36 @@
   <section id="home" hidden>
     <div class="infoBg">
       <div class="homeGrid">
+        
+        <div class="heroPlayoff">
+          <div class="heroContent">
+            <div class="heroTitle">🏆 Championship Playoffs 🏆</div>
+            <div class="heroSub">Next Week · Monday Feb 2, 2026 · Bell Sensplex</div>
+            
+            <div class="playoffGrid">
+              <div class="matchupCard">
+                <div class="matchType">Semi Final (1 v 2)</div>
+                <div class="matchVersus">
+                  <div class="tm shine">Sagol Er Dol</div>
+                  <div class="vs">VS</div>
+                  <div class="tm shine">Gunners</div>
+                </div>
+                <div class="matchInfo">10:00 PM · Winner to Final</div>
+              </div>
+              
+              <div class="matchupCard">
+                <div class="matchType">Eliminator (3 v 4)</div>
+                <div class="matchVersus">
+                  <div class="tm">Adda Athletic</div>
+                  <div class="vs">VS</div>
+                  <div class="tm">Goal Dile Bhat Free</div>
+                </div>
+                <div class="matchInfo">11:00 PM · Winner to Semi 2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="card" id="homeRecent">
           <div class="hd"><h2>Latest Matchweek Scores</h2></div>
           <div class="bd" id="thisWeekResults"></div>
@@ -400,7 +500,6 @@
       { id:'R9G1', round:9, date:'2026-01-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:4, awayScore:3, status:'final' },
       { id:'R9G2', round:9, date:'2026-01-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:4, awayScore:4, status:'final' },
 
-      // R10
       { id:'R10G1', round:10, date:'2026-01-26', homeTeamId:'T4', awayTeamId:'T2', homeScore:6, awayScore:9, status:'final' },
       { id:'R10G2', round:10, date:'2026-01-26', homeTeamId:'T1', awayTeamId:'T3', homeScore:8, awayScore:4, status:'final' }
     ],
@@ -437,9 +536,9 @@
       { id:'R10G1', round:10, date:'2026-01-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T2', status:'final' },
       { id:'R10G2', round:10, date:'2026-01-26', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'final' },
 
-      { id:'PO-SF1', stage:'Semi Final 1', date:'2026-02-02', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'1st Place', away:'2nd Place', status:'scheduled' },
-      { id:'PO-QF',  stage:'Quarter Final', date:'2026-02-02', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'3rd Place', away:'4th Place', status:'scheduled' },
-      { id:'PO-SF2', stage:'Semi Final 2', date:'2026-02-03', time:'TBD (Feb 3–8)', venue:'Bell Sensplex', home:'Loser SF1', away:'Winner QF', status:'scheduled' },
+      { id:'PO-SF1', stage:'Semi Final 1', date:'2026-02-02', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Sagol Er Dol', away:'Gunners', status:'scheduled' },
+      { id:'PO-QF',  stage:'Eliminator', date:'2026-02-02', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'Adda Athletic', away:'Goal Dile Bhat Free', status:'scheduled' },
+      { id:'PO-SF2', stage:'Semi Final 2', date:'2026-02-03', time:'TBD (Feb 3–8)', venue:'Bell Sensplex', home:'Loser SF1', away:'Winner Elim', status:'scheduled' },
       { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
     ],
 
