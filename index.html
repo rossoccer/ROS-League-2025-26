@@ -93,29 +93,29 @@
       color: #cbd5e1; margin-bottom: 24px; font-weight: 700;
     }
     .playoffGrid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      display: flex; justify-content: center; gap: 20px;
     }
-    @media (max-width: 700px) { .playoffGrid { grid-template-columns: 1fr; } }
+    @media (max-width: 700px) { .playoffGrid { flex-direction: column; } }
     
     .matchupCard {
       background: rgba(255,255,255,0.07);
       border: 1px solid rgba(251,191,36,0.3);
       border-radius: 16px;
-      padding: 16px;
+      padding: 24px; min-width: 300px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       transition: transform 0.2s ease;
     }
     .matchupCard:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
     .matchType {
       background: var(--gold); color: var(--royal-bg);
-      font-size: 11px; font-weight: 900; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 99px; margin-bottom: 12px;
+      font-size: 12px; font-weight: 900; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 99px; margin-bottom: 16px;
     }
     .matchVersus {
       display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
-    .tm { font-weight: 800; font-size: 18px; text-align: center; }
+    .tm { font-weight: 800; font-size: 22px; text-align: center; }
     .vs { font-size: 14px; font-weight: 900; color: var(--gold); opacity: 0.8; }
     .matchInfo {
       font-size: 13px; color: #cbd5e1; font-weight: 600;
@@ -249,28 +249,18 @@
         
         <div class="heroPlayoff">
           <div class="heroContent">
-            <div class="heroTitle">🏆 Championship Playoffs 🏆</div>
-            <div class="heroSub">Next Week · Monday Feb 2, 2026 · Bell Sensplex</div>
+            <div class="heroTitle">🏆 Semi Final 2 🏆</div>
+            <div class="heroSub">Winner Faces Sagol Er Dol in the Final</div>
             
             <div class="playoffGrid">
               <div class="matchupCard">
-                <div class="matchType">Semi Final (1 v 2)</div>
+                <div class="matchType">Playoff Semi Final 2</div>
                 <div class="matchVersus">
-                  <div class="tm shine">Sagol Er Dol</div>
-                  <div class="vs">VS</div>
                   <div class="tm shine">Gunners</div>
-                </div>
-                <div class="matchInfo">10:00 PM · Winner to Final</div>
-              </div>
-              
-              <div class="matchupCard">
-                <div class="matchType">Eliminator (3 v 4)</div>
-                <div class="matchVersus">
-                  <div class="tm">Adda Athletic</div>
                   <div class="vs">VS</div>
-                  <div class="tm">Goal Dile Bhat Free</div>
+                  <div class="tm shine">Adda Athletic</div>
                 </div>
-                <div class="matchInfo">11:00 PM · Winner to Semi 2</div>
+                <div class="matchInfo">TBD · Bell Sensplex</div>
               </div>
             </div>
           </div>
@@ -497,11 +487,16 @@
       { id:'R8G1', round:8, date:'2026-01-12', homeTeamId:'T1', awayTeamId:'T2', homeScore:5, awayScore:5, status:'final' },
       { id:'R8G2', round:8, date:'2026-01-12', homeTeamId:'T4', awayTeamId:'T5', homeScore:4, awayScore:5, status:'final' },
 
-      { id:'R9G1', round:9, date:'2026-01-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:4, awayScore:3, status:'final' },
-      { id:'R9G2', round:9, date:'2026-01-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:4, awayScore:4, status:'final' },
+      { id:'R9G1', round:9, date:'2026-01-19', homeTeamId:'T3', awayTeamId:'T5', homeScore:4, awayScore:4, status:'final' },
+      { id:'R9G2', round:9, date:'2026-01-19', homeTeamId:'T4', awayTeamId:'T1', homeScore:4, awayScore:3, status:'final' },
 
       { id:'R10G1', round:10, date:'2026-01-26', homeTeamId:'T4', awayTeamId:'T2', homeScore:6, awayScore:9, status:'final' },
-      { id:'R10G2', round:10, date:'2026-01-26', homeTeamId:'T1', awayTeamId:'T3', homeScore:8, awayScore:4, status:'final' }
+      { id:'R10G2', round:10, date:'2026-01-26', homeTeamId:'T1', awayTeamId:'T3', homeScore:8, awayScore:4, status:'final' },
+
+      // Playoffs
+      { id:'PO-SF1', round:11, date:'2026-02-02', homeTeamId:'T2', awayTeamId:'T4', homeScore:8, awayScore:2, status:'final' },
+      // Note: Eliminator drawn as 3-3, won on pens. We record 3-3 here for stats, but logic implies T1 won.
+      { id:'PO-QF',  round:11, date:'2026-02-02', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:3, status:'final' }
     ],
 
     // Schedule
@@ -530,19 +525,19 @@
       { id:'R8G1', round:8, date:'2026-01-12', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T1', away:'T2', status:'final' },
       { id:'R8G2', round:8, date:'2026-01-12', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T4', away:'T5', status:'final' },
 
-      { id:'R9G1', round:9, date:'2026-01-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T1', status:'final' },
-      { id:'R9G2', round:9, date:'2026-01-19', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'final' },
+      { id:'R9G1', round:9, date:'2026-01-19', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T3', away:'T5', status:'final' },
+      { id:'R9G2', round:9, date:'2026-01-19', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T4', away:'T1', status:'final' },
 
       { id:'R10G1', round:10, date:'2026-01-26', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'T4', away:'T2', status:'final' },
       { id:'R10G2', round:10, date:'2026-01-26', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'T1', away:'T3', status:'final' },
 
-      { id:'PO-SF1', stage:'Semi Final 1', date:'2026-02-02', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Sagol Er Dol', away:'Gunners', status:'scheduled' },
-      { id:'PO-QF',  stage:'Eliminator', date:'2026-02-02', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'Adda Athletic', away:'Goal Dile Bhat Free', status:'scheduled' },
-      { id:'PO-SF2', stage:'Semi Final 2', date:'2026-02-03', time:'TBD (Feb 3–8)', venue:'Bell Sensplex', home:'Loser SF1', away:'Winner Elim', status:'scheduled' },
-      { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Winner SF1', away:'Winner SF2', status:'scheduled' }
+      { id:'PO-SF1', stage:'Semi Final 1', date:'2026-02-02', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Sagol Er Dol', away:'Gunners', status:'final' },
+      { id:'PO-QF',  stage:'Eliminator', date:'2026-02-02', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'Adda Athletic', away:'Goal Dile Bhat Free', status:'final' },
+      { id:'PO-SF2', stage:'Semi Final 2', date:'2026-02-03', time:'TBD (Feb 3–8)', venue:'Bell Sensplex', home:'Gunners', away:'Adda Athletic', status:'scheduled' },
+      { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Sagol Er Dol', away:'Winner SF2', status:'scheduled' }
     ],
 
-    // Results (GW1–GW10)
+    // Results (GW1–GW10 + Playoffs)
     results: [
       { id:'RES-R1G1', date:'2025-10-29', home:'T3', away:'T2', hs:3, as:4,
         scorers:{ T3:["Sowaad (3) — AST: Tahmid (2)"], T2:["Saadman (3), Zarif Jr (1) — AST: Sindeed (2), Ilham (1)"] },
@@ -615,32 +610,50 @@
       },
 
       // GW8 - JAN 12
-      { id:'RES-R8G1', date:'2026-01-12', home:'T1', away:'T2', hs:5, as:5,
-        scorers:{ T1:["(Details to follow)"], T2:["(Details to follow)"] },
+      { id:'RES-R8G1', date:'2026-01-12', home:'T2', away:'T1', hs:5, as:5,
+        scorers:{ T2:["Saadman (3), Jabir (1), Zarif Jr (1) — AST: Murshed (1), Zarif Jr (1), Sindeed (1)"], 
+                  T1:["Adeeb (3), Aymaan Alamgir (1), Monjur (1) — AST: Sadman Kabir (1), Tabeeb (1), Tarun (1), Aymaan Alamgir (1)"] },
         video:""
       },
-      { id:'RES-R8G2', date:'2026-01-12', home:'T4', away:'T5', hs:4, as:5,
-        scorers:{ T4:["(Details to follow)"], T5:["(Details to follow)"] },
+      { id:'RES-R8G2', date:'2026-01-12', home:'T5', away:'T4', hs:5, as:4,
+        scorers:{ T5:["Tanzil (3), Abeed (1), Fardin (1) — AST: Tanzil (1)"], 
+                  T4:["Tazin (1) — AST: Tazin (1)"] },
         video:""
       },
 
       // GW9 - JAN 19
-      { id:'RES-R9G1', date:'2026-01-19', home:'T4', away:'T1', hs:4, as:3,
-        scorers:{ T4:["(Details to follow)"], T1:["(Details to follow)"] },
+      { id:'RES-R9G1', date:'2026-01-19', home:'T3', away:'T5', hs:4, as:4,
+        scorers:{ T3:["Sowaad (2), Arian (2) — AST: Sadman Sajid (1), Kaysh (1)"], 
+                  T5:["Egal (3), Abdu (1) — AST: Abeed (3), Abdu (1)"] },
         video:""
       },
-      { id:'RES-R9G2', date:'2026-01-19', home:'T3', away:'T5', hs:4, as:4,
-        scorers:{ T3:["(Details to follow)"], T5:["(Details to follow)"] },
+      { id:'RES-R9G2', date:'2026-01-19', home:'T4', away:'T1', hs:4, as:3,
+        scorers:{ T4:["Zee Chow (1), Ahnaf Jr (1), Tazin (1), Tahsin (1) — AST: Tazin (1), Tarek (1), Zee Chow (1)"], 
+                  T1:["Adeeb (3) — AST: Sadman Kabir (2), Aymaan Alamgir (1)"] },
         video:""
       },
 
       // GW10 - JAN 26
       { id:'RES-R10G1', date:'2026-01-26', home:'T4', away:'T2', hs:6, as:9,
-        scorers:{ T4:["(Details to follow)"], T2:["(Details to follow)"] },
+        scorers:{ T4:["Zee Chow (3), Tazin (2), Tahsin (1) — AST: Tazin (1), Tahsin (1), Ahnaf (1)"], 
+                  T2:["Saadman (5), Jabir (3), Murshed (1) — AST: Sameen (2), Jabir (2), Habib (1), Saadman (1), Murshed (1)"] },
         video:""
       },
       { id:'RES-R10G2', date:'2026-01-26', home:'T1', away:'T3', hs:8, as:4,
-        scorers:{ T1:["(Details to follow)"], T3:["(Details to follow)"] },
+        scorers:{ T1:["Adeeb (5), Tarun (1), Abid (1), Aymaan Alamgir (1) — AST: Aymaan Alamgir (2), Kabir (1), Tabeeb (1), Monjur (1)"], 
+                  T3:["Sowaad (2), Sadman Sajid (1), Tahmid (1) — AST: Tahmid (1), Arian (1)"] },
+        video:""
+      },
+
+      // PLAYOFFS - FEB 2
+      { id:'RES-PO-SF1', date:'2026-02-02', home:'T2', away:'T4', hs:8, as:2,
+        scorers:{ T2:["Saadman (6), Jabir (1), Afnan (1) — AST: Zarif Jr (4), Jabir (2), Murshed (1)"],
+                  T4:["Tarek (1), Ahnaf Jr (1) — AST: —"] },
+        video:""
+      },
+      { id:'RES-PO-QF', date:'2026-02-02', home:'T1', away:'T5', hs:3, as:3,
+        scorers:{ T1:["Adeeb (2), Tarun (1) (Won on Pens) — AST: Tarun (1)"],
+                  T5:["Egal (2), Abdu (1) — AST: Tanzil (1), Egal (1)"] },
         video:""
       }
     ]
@@ -667,7 +680,11 @@
 
   // ========= Stats applier helper =========
   function addGAFactory(){
-    const alias = (n)=> (n==='Sowad' ? 'Sowaad' : n);
+    const alias = (n)=> {
+      if(n==='Sowad') return 'Sowaad';
+      if(n==='Ayman Alamgir') return 'Aymaan Alamgir'; 
+      return n;
+    };
     return (name, key, val, teamId=null) => {
       const target = alias(name);
       let p = data.players.find(x=>x.name===target && (!teamId || x.teamId===teamId));
@@ -747,6 +764,53 @@
     // GW7 G2
     addGA('Tazin','goals',1,'T4'); addGA('Tarek','goals',1,'T4'); addGA('Shafiq','assists',1,'T4'); addGA('Tazin','assists',1,'T4');
     addGA('Sowad','goals',2,'T3'); addGA('Arian','assists',1,'T3');
+
+    // GW8 G1
+    addGA('Saadman','goals',3,'T2'); addGA('Jabir','goals',1,'T2'); addGA('Zarif Jr','goals',1,'T2');
+    addGA('Murshed','assists',1,'T2'); addGA('Zarif Jr','assists',1,'T2'); addGA('Sindeed','assists',1,'T2');
+    addGA('Aymaan Alamgir','goals',1,'T1'); addGA('Adeeb','goals',3,'T1'); addGA('Monjur','goals',1,'T1');
+    addGA('Sadman Kabir','assists',1,'T1'); addGA('Tabeeb','assists',1,'T1'); addGA('Tarun','assists',1,'T1'); addGA('Aymaan Alamgir','assists',1,'T1');
+
+    // GW8 G2
+    addGA('Tanzil','goals',3,'T5'); addGA('Abeed','goals',1,'T5'); addGA('Fardin','goals',1,'T5');
+    addGA('Tanzil','assists',1,'T5');
+    addGA('Tazin','goals',1,'T4'); addGA('Tazin','assists',1,'T4');
+
+    // GW9 G1
+    addGA('Sowad','goals',2,'T3'); addGA('Arian','goals',2,'T3');
+    addGA('Sadman Sajid','assists',1,'T3'); addGA('Kaysh','assists',1,'T3');
+    addGA('Egal','goals',3,'T5'); addGA('Abdu','goals',1,'T5');
+    addGA('Abeed','assists',3,'T5'); addGA('Abdu','assists',1,'T5');
+
+    // GW9 G2
+    addGA('Zee Chow','goals',1,'T4'); addGA('Ahnaf Jr','goals',1,'T4'); addGA('Tazin','goals',1,'T4'); addGA('Tahsin','goals',1,'T4');
+    addGA('Tazin','assists',1,'T4'); addGA('Tarek','assists',1,'T4'); addGA('Zee Chow','assists',1,'T4');
+    addGA('Adeeb','goals',3,'T1');
+    addGA('Sadman Kabir','assists',2,'T1'); addGA('Aymaan Alamgir','assists',1,'T1');
+
+    // GW10 G1
+    addGA('Tahsin','goals',1,'T4'); addGA('Tazin','goals',2,'T4'); addGA('Zee Chow','goals',3,'T4');
+    addGA('Tazin','assists',1,'T4'); addGA('Tahsin','assists',1,'T4'); addGA('Ahnaf','assists',1,'T4');
+    addGA('Jabir','goals',3,'T2'); addGA('Saadman','goals',5,'T2'); addGA('Murshed','goals',1,'T2');
+    addGA('Sameen','assists',2,'T2'); addGA('Habib','assists',1,'T2'); addGA('Saadman','assists',1,'T2'); addGA('Murshed','assists',1,'T2'); addGA('Jabir','assists',2,'T2');
+
+    // GW10 G2 (Adda vs Crack)
+    addGA('Adeeb','goals',5,'T1'); addGA('Tarun','goals',1,'T1'); addGA('Abid','goals',1,'T1'); addGA('Aymaan Alamgir','goals',1,'T1');
+    addGA('Aymaan Alamgir','assists',2,'T1'); addGA('Kabir','assists',1,'T1'); addGA('Tabeeb','assists',1,'T1'); addGA('Monjur','assists',1,'T1');
+    addGA('Sowad','goals',2,'T3'); addGA('Sadman Sajid','goals',1,'T3'); addGA('Tahmid','goals',1,'T3');
+    addGA('Tahmid','assists',1,'T3'); addGA('Arian','assists',1,'T3');
+
+    // Playoffs SF1
+    addGA('Tarek','goals',1,'T4'); addGA('Ahnaf Jr','goals',1,'T4');
+    addGA('Saadman','goals',6,'T2'); addGA('Jabir','goals',1,'T2'); addGA('Afnan','goals',1,'T2');
+    addGA('Murshed','assists',1,'T2'); addGA('Jabir','assists',2,'T2'); addGA('Zarif Jr','assists',4,'T2');
+
+    // Playoffs QF
+    addGA('Adeeb','goals',2,'T1'); addGA('Tarun','goals',1,'T1');
+    addGA('Tarun','assists',1,'T1');
+    addGA('Egal','goals',2,'T5'); addGA('Abdu','goals',1,'T5');
+    addGA('Tanzil','assists',1,'T5'); addGA('Egal','assists',1,'T5');
+
   })();
 
   // ========= Standings =========
@@ -760,6 +824,9 @@
     );
     for(const m of data.matches){
       if(m.status!=='final') continue;
+      // Do NOT include playoff games in the league table calculation
+      if(m.round > 10) continue; 
+
       const home = base[m.homeTeamId]; const away = base[m.awayTeamId];
       if(!home||!away) continue;
       home.played++; away.played++;
@@ -778,7 +845,7 @@
 
       // 2. Head-to-Head (if points tied)
       const h2hMatches = data.matches.filter(m => 
-        m.status === 'final' &&
+        m.status === 'final' && m.round <= 10 &&
         ((m.homeTeamId === a.teamId && m.awayTeamId === b.teamId) ||
          (m.homeTeamId === b.teamId && m.awayTeamId === a.teamId))
       );
@@ -792,20 +859,15 @@
           const scoreA = homeIsA ? m.homeScore : m.awayScore;
           const scoreB = homeIsA ? m.awayScore : m.homeScore;
 
-          // H2H Points
           if (scoreA > scoreB) aPts += 3;
           else if (scoreB > scoreA) bPts += 3;
           else { aPts += 1; bPts += 1; }
 
-          // H2H GD
           aGD += (scoreA - scoreB);
           bGD += (scoreB - scoreA);
         });
 
-        // Check H2H Points
         if (aPts !== bPts) return bPts - aPts;
-
-        // Check H2H Goal Difference
         if (aGD !== bGD) return bGD - aGD;
       }
 
@@ -825,8 +887,6 @@
     if(sortBy && sortBy!=='rank'){
       const f = dir==='asc'?1:-1;
       rows = [...rows].sort((a,b)=>{
-        // Use default logic for points to keep H2H valid? 
-        // Actually if user clicks sort, we do simple sort. H2H only applies to default rank.
         if(a[sortBy]===b[sortBy]) return 0;
         return (a[sortBy]>b[sortBy]?1:-1)*f;
       });
@@ -847,7 +907,17 @@
   // ========= Leaders =========
   function topPlayers(key, limit=10){
     return [...data.players]
-      .sort((a,b)=> (b[key]??0)-(a[key]??0) || a.name.localeCompare(b.name))
+      .sort((a,b)=> {
+        const valA = a[key] ?? 0;
+        const valB = b[key] ?? 0;
+        if(valB !== valA) return valB - valA;
+        
+        // Tie-breaker: Prioritize T2 (Sagol Er Dol)
+        if(a.teamId === 'T2' && b.teamId !== 'T2') return -1;
+        if(b.teamId === 'T2' && a.teamId !== 'T2') return 1;
+        
+        return a.name.localeCompare(b.name);
+      })
       .slice(0,limit);
   }
 
