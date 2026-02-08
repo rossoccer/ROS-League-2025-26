@@ -252,18 +252,18 @@
         
         <div class="heroPlayoff">
           <div class="heroContent">
-            <div class="heroTitle">🏆 Semi Final 2 🏆</div>
-            <div class="heroSub">Winner Faces Sagol Er Dol in the Final</div>
+            <div class="heroTitle">🏆 GRAND FINAL 🏆</div>
+            <div class="heroSub">Next Week · Monday Feb 9, 2026 · Bell Sensplex</div>
             
             <div class="playoffGrid">
               <div class="matchupCard">
-                <div class="matchType">Playoff Semi Final 2</div>
+                <div class="matchType">The Championship Match</div>
                 <div class="matchVersus">
-                  <div class="tm shine">Gunners</div>
+                  <div class="tm shine">Sagol Er Dol</div>
                   <div class="vs">VS</div>
-                  <div class="tm shine">Adda Athletic</div>
+                  <div class="tm shine">Gunners</div>
                 </div>
-                <div class="matchInfo">TBD · Bell Sensplex</div>
+                <div class="matchInfo">10:00 PM · Winner Takes All</div>
               </div>
             </div>
           </div>
@@ -507,8 +507,10 @@
 
       // Playoffs
       { id:'PO-SF1', round:11, date:'2026-02-02', homeTeamId:'T2', awayTeamId:'T4', homeScore:8, awayScore:2, status:'final' },
-      // Note: Eliminator drawn as 3-3, won on pens. We record 3-3 here for stats, but logic implies T1 won.
-      { id:'PO-QF',  round:11, date:'2026-02-02', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:3, status:'final' }
+      // Eliminator: 3-3, Adda win pens
+      { id:'PO-QF',  round:11, date:'2026-02-02', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:3, status:'final' },
+      // Semi Final 2: 2-2, Gunners win pens
+      { id:'PO-SF2', round:12, date:'2026-02-04', homeTeamId:'T4', awayTeamId:'T1', homeScore:2, awayScore:2, status:'final' }
     ],
 
     // Schedule
@@ -545,8 +547,8 @@
 
       { id:'PO-SF1', stage:'Semi Final 1', date:'2026-02-02', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Sagol Er Dol', away:'Gunners', status:'final' },
       { id:'PO-QF',  stage:'Eliminator', date:'2026-02-02', time:'11:00 PM – 12:00 AM', venue:'Bell Sensplex', home:'Adda Athletic', away:'Goal Dile Bhat Free', status:'final' },
-      { id:'PO-SF2', stage:'Semi Final 2', date:'2026-02-03', time:'TBD (Feb 3–8)', venue:'Bell Sensplex', home:'Gunners', away:'Adda Athletic', status:'scheduled' },
-      { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Sagol Er Dol', away:'Winner SF2', status:'scheduled' }
+      { id:'PO-SF2', stage:'Semi Final 2', date:'2026-02-04', time:'10:30 PM', venue:'Bell Sensplex', home:'Gunners', away:'Adda Athletic', status:'final' },
+      { id:'PO-F',   stage:'Final',        date:'2026-02-09', time:'10:00 PM – 11:00 PM', venue:'Bell Sensplex', home:'Sagol Er Dol', away:'Gunners', status:'scheduled' }
     ],
 
     // Results (GW1–GW10 + Playoffs)
@@ -666,6 +668,13 @@
       { id:'RES-PO-QF', date:'2026-02-02', home:'T1', away:'T5', hs:3, as:3,
         scorers:{ T1:["Adeeb (2), Tarun (1) (Won on Pens) — AST: Tarun (1)"],
                   T5:["Egal (2), Abdu (1) — AST: Tanzil (1), Egal (1)"] },
+        video:""
+      },
+
+      // PLAYOFFS - SEMI FINAL 2 - FEB 4
+      { id:'RES-PO-SF2', date:'2026-02-04', home:'T4', away:'T1', hs:2, as:2,
+        scorers:{ T4:["Ahnaf Jr (2) (Won on Pens) — AST: Tarek (1), Tahsin (1)"],
+                  T1:["Adeeb (2) — AST: Sadman Kabir (1)"] },
         video:""
       }
     ]
@@ -823,6 +832,12 @@
     addGA('Egal','goals',2,'T5'); addGA('Abdu','goals',1,'T5');
     addGA('Tanzil','assists',1,'T5'); addGA('Egal','assists',1,'T5');
 
+    // Playoffs SF2 (Gunners vs Adda 2-2)
+    addGA('Ahnaf Jr','goals',2,'T4');
+    addGA('Tarek','assists',1,'T4'); addGA('Tahsin','assists',1,'T4');
+    addGA('Adeeb','goals',2,'T1');
+    addGA('Sadman Kabir','assists',1,'T1');
+
     // Compute G/A
     data.players.forEach(p => { p.ga = (p.goals||0) + (p.assists||0); });
   })();
@@ -939,6 +954,11 @@
     const arr = topPlayers(key, 10);
     byId(maxBadgeId).textContent = `Max: ${arr[0]?.[key] ?? 0}`;
 
+    // Determine unit
+    let unit = 'G/A';
+    if(key === 'goals') unit = 'G';
+    if(key === 'assists') unit = 'A';
+
     // Top 5 (as usual)
     const top5 = arr.slice(0,5);
     const el = byId(topMountId); el.innerHTML='';
@@ -950,7 +970,7 @@
         <div>
           <div><strong>${idx+1}. ${p.name}</strong> <span class="muted">${t?.name || ''}</span></div>
         </div>
-        <div class="statValue">${p[key]}<span class="statUnit">${key==='ga'?'':'G/A'}</span></div>`;
+        <div class="statValue">${p[key]}<span class="statUnit">${unit}</span></div>`;
       el.appendChild(row);
     });
 
@@ -984,7 +1004,7 @@
             <div class="moreMuted">${t?.name || ''}</div>
           </div>
         </div>
-        <div class="moreStat">${p[key]}<span class="moreMuted">${key==='ga'?'':'G/A'}</span></div>
+        <div class="moreStat">${p[key]}<span class="moreMuted">${unit}</span></div>
       `;
       list.appendChild(div);
     });
