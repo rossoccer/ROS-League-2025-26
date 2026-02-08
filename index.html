@@ -129,16 +129,19 @@
     /* HOME grid layout */
     .homeGrid{display:grid;gap:16px}
     @media (min-width:980px){
-      .homeGrid{grid-template-columns:3fr 2fr; grid-template-rows:auto 1fr; align-items:stretch}
+      .homeGrid{grid-template-columns:3fr 2fr; grid-template-rows:auto 1fr auto; align-items:stretch}
       .homeGrid > .card{height:100%}
       /* Hero spans full width */
       .heroPlayoff { grid-column: 1 / -1; grid-row: 1; margin-bottom: 0; }
       
-      /* Shift everything else down */
+      /* Column 1 (Left) */
       #homeRecent{grid-column:1;grid-row:2}
+      #homeTable{ grid-column:1;grid-row:3 / span 2} /* Table is tall */
+
+      /* Column 2 (Right) */
       #homeScorers{grid-column:2;grid-row:2}
-      #homeTable{ grid-column:1;grid-row:3}
       #homeAssisters{grid-column:2;grid-row:3}
+      #homeGA{grid-column:2;grid-row:4}
     }
     @media (max-width:979px){
       .homeGrid{grid-template-columns:1fr}
@@ -315,6 +318,15 @@
             <div class="moreWrap" id="moreAssistsWrap"></div>
           </div>
         </div>
+
+        <div class="card" id="homeGA">
+          <div class="hd"><h2>Top G/A (Goals + Assists)</h2><span class="badge" id="maxGA">—</span></div>
+          <div class="bd">
+            <div class="toplist" id="topGA"></div>
+            <div class="moreWrap" id="moreGAWrap"></div>
+          </div>
+        </div>
+
       </div>
 
       <div class="card logoCard">
@@ -461,7 +473,7 @@
       { id:'P110', teamId:'T1', name:'Abid', goals:0, assists:0 }
     ],
 
-    // Matches (R1–R10)
+    // Matches (R1–R10 + Playoffs)
     matches: [
       { id:'R1G1', round:1, date:'2025-10-29', homeTeamId:'T3', awayTeamId:'T2', homeScore:3, awayScore:4, status:'final' },
       { id:'R1G2', round:1, date:'2025-10-29', homeTeamId:'T1', awayTeamId:'T5', homeScore:3, awayScore:2, status:'final' },
@@ -811,6 +823,8 @@
     addGA('Egal','goals',2,'T5'); addGA('Abdu','goals',1,'T5');
     addGA('Tanzil','assists',1,'T5'); addGA('Egal','assists',1,'T5');
 
+    // Compute G/A
+    data.players.forEach(p => { p.ga = (p.goals||0) + (p.assists||0); });
   })();
 
   // ========= Standings =========
@@ -936,7 +950,7 @@
         <div>
           <div><strong>${idx+1}. ${p.name}</strong> <span class="muted">${t?.name || ''}</span></div>
         </div>
-        <div class="statValue">${p[key]}<span class="statUnit">${key==='goals'?'G':'A'}</span></div>`;
+        <div class="statValue">${p[key]}<span class="statUnit">${key==='ga'?'':'G/A'}</span></div>`;
       el.appendChild(row);
     });
 
@@ -970,7 +984,7 @@
             <div class="moreMuted">${t?.name || ''}</div>
           </div>
         </div>
-        <div class="moreStat">${p[key]}<span class="moreMuted">${key==='goals'?'G':'A'}</span></div>
+        <div class="moreStat">${p[key]}<span class="moreMuted">${key==='ga'?'':'G/A'}</span></div>
       `;
       list.appendChild(div);
     });
@@ -997,6 +1011,13 @@
       moreMountId:'moreAssistsWrap',
       maxBadgeId:'maxAssists',
       moreKey:'assists'
+    });
+    renderLeaderBlock({
+      key:'ga',
+      topMountId:'topGA',
+      moreMountId:'moreGAWrap',
+      maxBadgeId:'maxGA',
+      moreKey:'ga'
     });
   }
 
